@@ -6,15 +6,16 @@ module down_counter #(
   input logic clear,
   output logic [WIDTH-1:0] count
 );
-
+logic [WIDTH-1:0] cnt_value;
   // Down counter logic
   always @(posedge clk or posedge clear) begin
     if (clear == 1) begin
-      count <= 4'b1111; // Set count to 15 (highest value for 4-bit counter)
+      cnt_value = 4'b1111; // Set count to 15 (highest value for 4-bit counter)
     end
     else begin
-        count <= count - 1; // Decrement count by 1
+        cnt_value = cnt_value - 1; // Decrement count by 1
     end
   end
+  assign count = cnt_value;
 
 endmodule: down_counter
