@@ -1,0 +1,65 @@
+# Reading pref.tcl
+# do mux_2x1_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -sv -work work +incdir+C:/Users/anw011/Downloads/111-main/Lab1 {C:/Users/anw011/Downloads/111-main/Lab1/mux_2x1_behavioral.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 12:34:33 on Apr 15,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/anw011/Downloads/111-main/Lab1" C:/Users/anw011/Downloads/111-main/Lab1/mux_2x1_behavioral.sv 
+# -- Compiling module mux_2x1
+# 
+# Top level modules:
+# 	mux_2x1
+# End time: 12:34:33 on Apr 15,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# 
+vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab1/mux_2x1_behavioral.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 12:35:06 on Apr 15,2024
+# vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab1/mux_2x1_behavioral.sv 
+# -- Compiling module mux_2x1
+# 
+# Top level modules:
+# 	mux_2x1
+# End time: 12:35:06 on Apr 15,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab1/mux_2x1_testbench.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 12:35:06 on Apr 15,2024
+# vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab1/mux_2x1_testbench.sv 
+# -- Compiling module mux_2x1_testbench
+# 
+# Top level modules:
+# 	mux_2x1_testbench
+# End time: 12:35:06 on Apr 15,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# ** Error: (vlog-11) Could not find C:/Users/anw011/Downloads/mux21/simulation/modelsim/rtl_work.mux_2x1 Primary.
+vsim rtl_work.mux_2x1_testbench
+# vsim rtl_work.mux_2x1_testbench 
+# Start time: 12:35:26 on Apr 15,2024
+# Loading sv_std.std
+# Loading rtl_work.mux_2x1_testbench
+# Loading rtl_work.mux_2x1
+add wave -position insertpoint sim:/mux_2x1_testbench/*
+run -all
+#  time=0,  in=00  sel=0  out=0
+# 
+#  time=150,  in=01  sel=0  out=1
+# 
+#  time=200,  in=10  sel=0  out=0
+# 
+#  time=250,  in=00  sel=1  out=0
+# 
+#  time=300,  in=01  sel=1  out=0
+# 
+#  time=350,  in=10  sel=1  out=1
+# 

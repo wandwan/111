@@ -1,0 +1,115 @@
+# Reading pref.tcl
+# do fulladder_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -sv -work work +incdir+C:/Users/anw011/Downloads/111-main/Lab1 {C:/Users/anw011/Downloads/111-main/Lab1/fulladder_behavioral.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 12:25:20 on Apr 15,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/anw011/Downloads/111-main/Lab1" C:/Users/anw011/Downloads/111-main/Lab1/fulladder_behavioral.sv 
+# -- Compiling module fulladder
+# 
+# Top level modules:
+# 	fulladder
+# End time: 12:25:21 on Apr 15,2024, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# 
+vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab1/fulladder_behavioral.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 12:25:49 on Apr 15,2024
+# vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab1/fulladder_behavioral.sv 
+# -- Compiling module fulladder
+# 
+# Top level modules:
+# 	fulladder
+# End time: 12:25:50 on Apr 15,2024, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab1/fulladder_testbench.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 12:25:50 on Apr 15,2024
+# vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab1/fulladder_testbench.sv 
+# -- Compiling module fulladder_testbench
+# 
+# Top level modules:
+# 	fulladder_testbench
+# End time: 12:25:50 on Apr 15,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim rtl_work.fulladder rtl_work.fulladder_testbench
+# vsim rtl_work.fulladder rtl_work.fulladder_testbench 
+# Start time: 12:26:01 on Apr 15,2024
+# Loading sv_std.std
+# Loading rtl_work.fulladder
+# Loading rtl_work.fulladder_testbench
+vsim rtl_work.fulladder rtl_work.fulladder_testbench
+# End time: 12:26:22 on Apr 15,2024, Elapsed time: 0:00:21
+# Errors: 0, Warnings: 0
+# vsim rtl_work.fulladder rtl_work.fulladder_testbench 
+# Start time: 12:26:22 on Apr 15,2024
+# Loading sv_std.std
+# Loading rtl_work.fulladder
+# Loading rtl_work.fulladder_testbench
+run -all
+#  time=0   a=0   b=0   c=0   sum=0   cout=0
+# 
+#  time=150   a=1   b=0   c=0   sum=1   cout=0
+# 
+#  time=200   a=0   b=1   c=0   sum=1   cout=0
+# 
+#  time=250   a=1   b=1   c=0   sum=0   cout=1
+# 
+#  time=300   a=0   b=0   c=1   sum=1   cout=0
+# 
+#  time=350   a=1   b=0   c=1   sum=0   cout=1
+# 
+#  time=400   a=0   b=1   c=1   sum=0   cout=1
+# 
+#  time=450   a=1   b=1   c=1   sum=1   cout=1
+# 
+add wave -position insertpoint sim:/fulladder/*
+run -all
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# ** Error: (vlog-11) Could not find C:/Users/anw011/Downloads/fulladder/simulation/modelsim/rtl_work.fulladder Primary.
+vsim rtl_work.fulladder rtl_work.fulladder_testbench
+# End time: 12:27:52 on Apr 15,2024, Elapsed time: 0:01:30
+# Errors: 0, Warnings: 0
+# vsim rtl_work.fulladder rtl_work.fulladder_testbench 
+# Start time: 12:27:52 on Apr 15,2024
+# Loading sv_std.std
+# Loading rtl_work.fulladder
+# Loading rtl_work.fulladder_testbench
+add wave -position insertpoint sim:/fulladder_testbench/*
+add wave -position insertpoint sim:/fulladder/*
+vsim rtl_work.fulladder rtl_work.fulladder_testbench
+# End time: 12:28:22 on Apr 15,2024, Elapsed time: 0:00:30
+# Errors: 0, Warnings: 0
+# vsim rtl_work.fulladder rtl_work.fulladder_testbench 
+# Start time: 12:28:22 on Apr 15,2024
+# Loading sv_std.std
+# Loading rtl_work.fulladder
+# Loading rtl_work.fulladder_testbench
+add wave -position insertpoint sim:/fulladder_testbench/*
+add wave -position insertpoint sim:/fulladder/*
+run -all
+#  time=0   a=0   b=0   c=0   sum=0   cout=0
+# 
+#  time=150   a=1   b=0   c=0   sum=1   cout=0
+# 
+#  time=200   a=0   b=1   c=0   sum=1   cout=0
+# 
+#  time=250   a=1   b=1   c=0   sum=0   cout=1
+# 
+#  time=300   a=0   b=0   c=1   sum=1   cout=0
+# 
+#  time=350   a=1   b=0   c=1   sum=0   cout=1
+# 
+#  time=400   a=0   b=1   c=1   sum=0   cout=1
+# 
+#  time=450   a=1   b=1   c=1   sum=1   cout=1
+# 

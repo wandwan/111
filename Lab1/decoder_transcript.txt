@@ -1,0 +1,108 @@
+ Reading pref.tcl
+# do decoder_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -sv -work work +incdir+C:/Users/anw011/Downloads/111-main/Lab1 {C:/Users/anw011/Downloads/111-main/Lab1/decoder_2to4_behavioral.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 22:24:23 on Apr 14,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/anw011/Downloads/111-main/Lab1" C:/Users/anw011/Downloads/111-main/Lab1/decoder_2to4_behavioral.sv 
+# -- Compiling module decoder
+# 
+# Top level modules:
+# 	decoder
+# End time: 22:24:24 on Apr 14,2024, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+# 
+vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab1/decoder_2to4_behavioral.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 22:29:54 on Apr 14,2024
+# vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab1/decoder_2to4_behavioral.sv 
+# -- Compiling module decoder
+# 
+# Top level modules:
+# 	decoder
+# End time: 22:29:54 on Apr 14,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab1/decoder_2to4_testbench.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 22:29:54 on Apr 14,2024
+# vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab1/decoder_2to4_testbench.sv 
+# -- Compiling module decoder_2to4_testbench
+# 
+# Top level modules:
+# 	decoder_2to4_testbench
+# End time: 22:29:54 on Apr 14,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab1/decoder_2to4_behavioral.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 22:29:59 on Apr 14,2024
+# vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab1/decoder_2to4_behavioral.sv 
+# -- Compiling module decoder
+# 
+# Top level modules:
+# 	decoder
+# End time: 22:30:00 on Apr 14,2024, Elapsed time: 0:00:01
+# Errors: 0, Warnings: 0
+vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab1/decoder_2to4_testbench.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 22:30:00 on Apr 14,2024
+# vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab1/decoder_2to4_testbench.sv 
+# -- Compiling module decoder_2to4_testbench
+# 
+# Top level modules:
+# 	decoder_2to4_testbench
+# End time: 22:30:00 on Apr 14,2024, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+vsim work.decoder
+# vsim work.decoder 
+# Start time: 22:30:07 on Apr 14,2024
+# Loading sv_std.std
+# Loading work.decoder
+add wave -position insertpoint  \
+sim:/decoder/sel
+add wave -position insertpoint  \
+sim:/decoder/out
+vsim rtl_work.decoder
+# End time: 23:45:03 on Apr 14,2024, Elapsed time: 1:14:56
+# Errors: 0, Warnings: 0
+# vsim rtl_work.decoder 
+# Start time: 23:45:03 on Apr 14,2024
+# Loading sv_std.std
+# Loading rtl_work.decoder
+vsim rtl_work.decoder rtl_work.decoder_2to4_testbench
+# End time: 23:45:19 on Apr 14,2024, Elapsed time: 0:00:16
+# Errors: 0, Warnings: 0
+# vsim rtl_work.decoder rtl_work.decoder_2to4_testbench 
+# Start time: 23:45:19 on Apr 14,2024
+# Loading sv_std.std
+# Loading rtl_work.decoder
+# Loading rtl_work.decoder_2to4_testbench
+add wave -position insertpoint  \
+sim:/decoder_2to4_testbench/tb_sel
+add wave -position insertpoint  \
+sim:/decoder_2to4_testbench/tb_out
+add wave -position insertpoint  \
+sim:/decoder/sel \
+sim:/decoder/out
+run
+#  time=0,  sel=00   out=0001
+# 
+run -all
+#  time=150,  sel=10   out=0100
+# 
+#  time=200,  sel=01   out=0010
+# 
+#  time=250,  sel=11   out=1000
+# 
+run -all
+run -next
+# Nothing left to do.
+#
