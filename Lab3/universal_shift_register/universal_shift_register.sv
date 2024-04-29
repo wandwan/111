@@ -53,10 +53,6 @@ module universal_shift_register (
                     shift_reg <= {sin, shift_reg[3:1]};
                     sout <= shift_reg[0];
                   end
-        3'b111 : begin
-                    shift_reg <= shift_reg;
-                    sout <= 1'b0;
-                  end
 
        default : begin 
                    shift_reg <= 4'b0000;

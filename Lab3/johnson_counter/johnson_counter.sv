@@ -13,7 +13,7 @@ always@(posedge clk or negedge clear) begin
     count <= load_cnt;
   end
   else begin
-    count <= {count[2:0], ~count[3]};
+    count <= {~count[0], count[3:1]};
   end
 end
 endmodule: johnson_counter
