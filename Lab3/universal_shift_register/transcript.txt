@@ -1,0 +1,155 @@
+ Reading pref.tcl
+# do universal_shift_register_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -sv -work work +incdir+C:/Users/anw011/Downloads/111-main/Lab3/universal_shift_register {C:/Users/anw011/Downloads/111-main/Lab3/universal_shift_register/universal_shift_register.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 00:36:47 on Apr 29,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/anw011/Downloads/111-main/Lab3/universal_shift_register" C:/Users/anw011/Downloads/111-main/Lab3/universal_shift_register/universal_shift_register.sv 
+# -- Compiling module universal_shift_register
+# 
+# Top level modules:
+# 	universal_shift_register
+# End time: 00:36:50 on Apr 29,2024, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0
+# 
+vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab3/universal_shift_register/universal_shift_register.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 00:37:00 on Apr 29,2024
+# vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab3/universal_shift_register/universal_shift_register.sv 
+# -- Compiling module universal_shift_register
+# 
+# Top level modules:
+# 	universal_shift_register
+# End time: 00:37:03 on Apr 29,2024, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0
+vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab3/universal_shift_register/universal_shift_register_testbench.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 00:37:04 on Apr 29,2024
+# vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab3/universal_shift_register/universal_shift_register_testbench.sv 
+# -- Compiling module universal_shift_register_testbench
+# 
+# Top level modules:
+# 	universal_shift_register_testbench
+# End time: 00:37:06 on Apr 29,2024, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
+vsim -gui -l msim_transcript rtl_work.universal_shift_register rtl_work.universal_shift_register_testbench
+# vsim -gui -l msim_transcript rtl_work.universal_shift_register rtl_work.universal_shift_register_testbench 
+# Start time: 00:37:17 on Apr 29,2024
+# Loading sv_std.std
+# Loading rtl_work.universal_shift_register
+# Loading rtl_work.universal_shift_register_testbench
+add wave -position insertpoint  \
+sim:/universal_shift_register_testbench/din \
+sim:/universal_shift_register_testbench/clock \
+sim:/universal_shift_register_testbench/reset \
+sim:/universal_shift_register_testbench/load \
+sim:/universal_shift_register_testbench/dout \
+sim:/universal_shift_register_testbench/shift_mode \
+sim:/universal_shift_register_testbench/sin \
+sim:/universal_shift_register_testbench/sout
+run -all
+#  time=0,  clk=1  reset=1  shift_mode=0, load=0, din= 0, dout= 0
+#  time=100000,  clk=0  reset=1  shift_mode=0, load=0, din= 0, dout= 0
+#  time=200000,  clk=1  reset=0  shift_mode=0, load=0, din= 0, dout= 0
+#  time=300000,  clk=0  reset=0  shift_mode=0, load=0, din= 0, dout= 0
+#  time=400000,  clk=1  reset=0  shift_mode=0, load=0, din= 9, dout= 9
+#  time=500000,  clk=0  reset=0  shift_mode=0, load=0, din= 9, dout= 9
+#  time=600000,  clk=1  reset=1  shift_mode=0, load=0, din= 9, dout= 0
+#  time=700000,  clk=0  reset=1  shift_mode=0, load=0, din= 9, dout= 0
+#  time=800000,  clk=1  reset=0  shift_mode=1, load=0, din= 9, dout= 3
+#  time=900000,  clk=0  reset=0  shift_mode=1, load=0, din= 9, dout= 3
+#  time=1000000,  clk=1  reset=0  shift_mode=1, load=0, din= 9, dout= 7
+#  time=1100000,  clk=0  reset=0  shift_mode=1, load=0, din= 9, dout= 7
+#  time=1200000,  clk=1  reset=0  shift_mode=1, load=0, din= 9, dout=14
+#  time=1300000,  clk=0  reset=0  shift_mode=1, load=0, din= 9, dout=14
+#  time=1400000,  clk=1  reset=0  shift_mode=1, load=0, din= 9, dout=13
+#  time=1500000,  clk=0  reset=0  shift_mode=1, load=0, din= 9, dout=13
+#  time=1600000,  clk=1  reset=1  shift_mode=1, load=0, din= 9, dout= 0
+#  time=1700000,  clk=0  reset=1  shift_mode=1, load=0, din= 9, dout= 0
+#  time=1800000,  clk=1  reset=0  shift_mode=2, load=0, din= 9, dout= 6
+#  time=1900000,  clk=0  reset=0  shift_mode=2, load=0, din= 9, dout= 6
+#  time=2000000,  clk=1  reset=0  shift_mode=2, load=0, din= 9, dout=11
+#  time=2100000,  clk=0  reset=0  shift_mode=2, load=0, din= 9, dout=11
+#  time=2200000,  clk=1  reset=0  shift_mode=2, load=0, din= 9, dout=13
+#  time=2300000,  clk=0  reset=0  shift_mode=2, load=0, din= 9, dout=13
+#  time=2400000,  clk=1  reset=0  shift_mode=2, load=0, din= 9, dout=14
+#  time=2500000,  clk=0  reset=0  shift_mode=2, load=0, din= 9, dout=14
+#  time=2600000,  clk=1  reset=1  shift_mode=2, load=0, din= 9, dout= 0
+#  time=2700000,  clk=0  reset=1  shift_mode=2, load=0, din= 9, dout= 0
+#  time=2800000,  clk=1  reset=0  shift_mode=2, load=1, din=13, dout= 0
+#  time=2900000,  clk=0  reset=0  shift_mode=2, load=1, din=13, dout= 0
+#  time=3000000,  clk=1  reset=0  shift_mode=3, load=0, din=13, dout= 0
+#  time=3100000,  clk=0  reset=0  shift_mode=3, load=0, din=13, dout= 0
+#  time=3200000,  clk=1  reset=0  shift_mode=3, load=0, din=13, dout= 0
+#  time=3300000,  clk=0  reset=0  shift_mode=3, load=0, din=13, dout= 0
+#  time=3400000,  clk=1  reset=0  shift_mode=3, load=0, din=13, dout= 0
+#  time=3500000,  clk=0  reset=0  shift_mode=3, load=0, din=13, dout= 0
+#  time=3600000,  clk=1  reset=0  shift_mode=3, load=0, din=13, dout= 0
+#  time=3700000,  clk=0  reset=0  shift_mode=3, load=0, din=13, dout= 0
+#  time=3800000,  clk=1  reset=1  shift_mode=3, load=0, din=13, dout= 0
+#  time=3900000,  clk=0  reset=1  shift_mode=3, load=0, din=13, dout= 0
+#  time=4000000,  clk=1  reset=0  shift_mode=3, load=1, din= 8, dout= 0
+#  time=4100000,  clk=0  reset=0  shift_mode=3, load=1, din= 8, dout= 0
+#  time=4200000,  clk=1  reset=0  shift_mode=4, load=0, din= 8, dout= 0
+#  time=4300000,  clk=0  reset=0  shift_mode=4, load=0, din= 8, dout= 0
+#  time=4400000,  clk=1  reset=0  shift_mode=4, load=0, din= 8, dout= 0
+#  time=4500000,  clk=0  reset=0  shift_mode=4, load=0, din= 8, dout= 0
+#  time=4600000,  clk=1  reset=0  shift_mode=4, load=0, din= 8, dout= 0
+#  time=4700000,  clk=0  reset=0  shift_mode=4, load=0, din= 8, dout= 0
+#  time=4800000,  clk=1  reset=0  shift_mode=4, load=0, din= 8, dout= 0
+#  time=4900000,  clk=0  reset=0  shift_mode=4, load=0, din= 8, dout= 0
+#  time=5000000,  clk=1  reset=1  shift_mode=4, load=0, din= 8, dout= 0
+#  time=5100000,  clk=0  reset=1  shift_mode=4, load=0, din= 8, dout= 0
+#  time=5200000,  clk=1  reset=0  shift_mode=5, load=0, din= 8, dout= 0
+#  time=5300000,  clk=0  reset=0  shift_mode=5, load=0, din= 8, dout= 0
+#  time=5400000,  clk=1  reset=0  shift_mode=5, load=0, din= 8, dout= 0
+#  time=5500000,  clk=0  reset=0  shift_mode=5, load=0, din= 8, dout= 0
+#  time=5600000,  clk=1  reset=0  shift_mode=5, load=0, din= 8, dout= 0
+#  time=5700000,  clk=0  reset=0  shift_mode=5, load=0, din= 8, dout= 0
+#  time=5800000,  clk=1  reset=0  shift_mode=5, load=0, din= 8, dout= 0
+#  time=5900000,  clk=0  reset=0  shift_mode=5, load=0, din= 8, dout= 0
+#  time=6000000,  clk=1  reset=0  shift_mode=5, load=0, din= 8, dout= 0
+#  time=6100000,  clk=0  reset=0  shift_mode=5, load=0, din= 8, dout= 0
+#  time=6200000,  clk=1  reset=0  shift_mode=5, load=0, din= 8, dout= 0
+#  time=6300000,  clk=0  reset=0  shift_mode=5, load=0, din= 8, dout= 0
+#  time=6400000,  clk=1  reset=0  shift_mode=5, load=0, din= 8, dout= 0
+#  time=6500000,  clk=0  reset=0  shift_mode=5, load=0, din= 8, dout= 0
+#  time=6600000,  clk=1  reset=0  shift_mode=5, load=0, din= 8, dout= 0
+#  time=6700000,  clk=0  reset=0  shift_mode=5, load=0, din= 8, dout= 0
+#  time=6800000,  clk=1  reset=1  shift_mode=5, load=0, din= 8, dout= 0
+#  time=6900000,  clk=0  reset=1  shift_mode=5, load=0, din= 8, dout= 0
+#  time=7000000,  clk=1  reset=0  shift_mode=6, load=0, din= 8, dout= 0
+#  time=7100000,  clk=0  reset=0  shift_mode=6, load=0, din= 8, dout= 0
+#  time=7200000,  clk=1  reset=0  shift_mode=6, load=0, din= 8, dout= 0
+#  time=7300000,  clk=0  reset=0  shift_mode=6, load=0, din= 8, dout= 0
+#  time=7400000,  clk=1  reset=0  shift_mode=6, load=0, din= 8, dout= 0
+#  time=7500000,  clk=0  reset=0  shift_mode=6, load=0, din= 8, dout= 0
+#  time=7600000,  clk=1  reset=0  shift_mode=6, load=0, din= 8, dout= 0
+#  time=7700000,  clk=0  reset=0  shift_mode=6, load=0, din= 8, dout= 0
+#  time=7800000,  clk=1  reset=0  shift_mode=6, load=0, din= 8, dout= 0
+#  time=7900000,  clk=0  reset=0  shift_mode=6, load=0, din= 8, dout= 0
+#  time=8000000,  clk=1  reset=0  shift_mode=6, load=0, din= 8, dout= 0
+#  time=8100000,  clk=0  reset=0  shift_mode=6, load=0, din= 8, dout= 0
+#  time=8200000,  clk=1  reset=0  shift_mode=6, load=0, din= 8, dout= 0
+#  time=8300000,  clk=0  reset=0  shift_mode=6, load=0, din= 8, dout= 0
+#  time=8400000,  clk=1  reset=0  shift_mode=6, load=0, din= 8, dout= 0
+#  time=8500000,  clk=0  reset=0  shift_mode=6, load=0, din= 8, dout= 0
+#  time=8600000,  clk=1  reset=1  shift_mode=6, load=0, din= 8, dout= 0
+#  time=8700000,  clk=0  reset=1  shift_mode=6, load=0, din= 8, dout= 0
+#  time=8800000,  clk=1  reset=0  shift_mode=0, load=0, din= 8, dout= 8
+#  time=8900000,  clk=0  reset=0  shift_mode=0, load=0, din= 8, dout= 8
+#  time=9000000,  clk=1  reset=0  shift_mode=0, load=0, din= 8, dout= 8
+#  time=9100000,  clk=0  reset=0  shift_mode=0, load=0, din= 8, dout= 8
+# ** Note: $finish    : C:/Users/anw011/Downloads/111-main/Lab3/universal_shift_register/universal_shift_register_testbench.sv(170)
+#    Time: 9200 ns  Iteration: 0  Instance: /universal_shift_register_testbench
+# 1
+# Break in Module universal_shift_register_testbench at C:/Users/anw011/Downloads/111-main/Lab3/universal_shift_register/universal_shift_register_testbench.sv line 170

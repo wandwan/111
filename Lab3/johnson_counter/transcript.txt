@@ -1,0 +1,107 @@
+# Reading pref.tcl
+# do johnson_counter_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -sv -work work +incdir+C:/Users/anw011/Downloads/111-main/Lab3/johnson_counter {C:/Users/anw011/Downloads/111-main/Lab3/johnson_counter/johnson_counter.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 09:35:41 on Apr 29,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+C:/Users/anw011/Downloads/111-main/Lab3/johnson_counter" C:/Users/anw011/Downloads/111-main/Lab3/johnson_counter/johnson_counter.sv 
+# -- Compiling module johnson_counter
+# 
+# Top level modules:
+# 	johnson_counter
+# End time: 09:35:44 on Apr 29,2024, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0
+# 
+vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab3/johnson_counter/johnson_counter.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 09:37:26 on Apr 29,2024
+# vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab3/johnson_counter/johnson_counter.sv 
+# -- Compiling module johnson_counter
+# 
+# Top level modules:
+# 	johnson_counter
+# End time: 09:37:29 on Apr 29,2024, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0
+vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab3/johnson_counter/johnson_counter_testbench.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 09:37:29 on Apr 29,2024
+# vlog -reportprogress 300 -work work C:/Users/anw011/Downloads/111-main/Lab3/johnson_counter/johnson_counter_testbench.sv 
+# -- Compiling module johnson_counter_testbench
+# 
+# Top level modules:
+# 	johnson_counter_testbench
+# End time: 09:37:32 on Apr 29,2024, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0
+vsim -gui -l msim_transcript rtl_work.johnson_counter rtl_work.johnson_counter_testbench
+# vsim -gui -l msim_transcript rtl_work.johnson_counter rtl_work.johnson_counter_testbench 
+# Start time: 09:37:41 on Apr 29,2024
+# Loading sv_std.std
+# Loading rtl_work.johnson_counter
+# Loading rtl_work.johnson_counter_testbench
+add wave sim:/johnson_counter_testbench/*
+run -all
+#  time=0,  clear=0  clk=0  count= 0
+#  time=10,  clear=1  clk=1  count= 1
+#  time=20,  clear=1  clk=0  count= 1
+#  time=30,  clear=1  clk=1  count= 0
+#  time=40,  clear=1  clk=0  count= 0
+#  time=50,  clear=1  clk=1  count= 1
+#  time=60,  clear=1  clk=0  count= 1
+#  time=70,  clear=1  clk=1  count= 3
+#  time=80,  clear=1  clk=0  count= 3
+#  time=90,  clear=1  clk=1  count= 7
+#  time=100,  clear=1  clk=0  count= 7
+#  time=110,  clear=1  clk=1  count=15
+#  time=120,  clear=1  clk=0  count=15
+#  time=130,  clear=1  clk=1  count=14
+#  time=140,  clear=1  clk=0  count=14
+#  time=150,  clear=1  clk=1  count=12
+#  time=160,  clear=1  clk=0  count=12
+#  time=170,  clear=1  clk=1  count= 8
+#  time=180,  clear=1  clk=0  count= 8
+#  time=190,  clear=1  clk=1  count= 0
+#  time=200,  clear=1  clk=0  count= 0
+#  time=210,  clear=1  clk=1  count= 1
+#  time=220,  clear=1  clk=0  count= 1
+#  time=230,  clear=1  clk=1  count= 3
+#  time=240,  clear=1  clk=0  count= 3
+#  time=250,  clear=1  clk=1  count= 7
+#  time=260,  clear=1  clk=0  count= 7
+#  time=270,  clear=1  clk=1  count=15
+#  time=280,  clear=1  clk=0  count=15
+#  time=290,  clear=1  clk=1  count=14
+#  time=300,  clear=1  clk=0  count=14
+#  time=310,  clear=1  clk=1  count=12
+#  time=320,  clear=1  clk=0  count=12
+#  time=330,  clear=1  clk=1  count= 8
+#  time=340,  clear=1  clk=0  count= 8
+#  time=350,  clear=1  clk=1  count= 0
+#  time=360,  clear=1  clk=0  count= 0
+#  time=370,  clear=1  clk=1  count= 1
+#  time=380,  clear=0  clk=0  count= 0
+#  time=390,  clear=0  clk=1  count= 0
+#  time=400,  clear=1  clk=0  count= 0
+#  time=410,  clear=1  clk=1  count= 8
+#  time=420,  clear=1  clk=0  count= 8
+#  time=430,  clear=1  clk=1  count= 0
+#  time=440,  clear=1  clk=0  count= 0
+#  time=450,  clear=1  clk=1  count= 1
+#  time=460,  clear=1  clk=0  count= 1
+#  time=470,  clear=1  clk=1  count= 3
+#  time=480,  clear=1  clk=0  count= 3
+#  time=490,  clear=1  clk=1  count= 7
+#  time=500,  clear=1  clk=0  count= 7
+#  time=510,  clear=1  clk=1  count=15
+# ** Note: $finish    : C:/Users/anw011/Downloads/111-main/Lab3/johnson_counter/johnson_counter_testbench.sv(53)
+#    Time: 520 ns  Iteration: 0  Instance: /johnson_counter_testbench
+# 1
+# Break in Module johnson_counter_testbench at C:/Users/anw011/Downloads/111-main/Lab3/johnson_counter/johnson_counter_testbench.sv line 53
