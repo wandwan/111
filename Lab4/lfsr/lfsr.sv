@@ -32,10 +32,10 @@ always_ff @(posedge clk, negedge reset) begin
   end
   else begin
     lfsr_reg <= {lfsr_reg[N-2:0], ^(lfsr_reg & taps[N-1][N-1:0])};
+    count <= count + 1;
     // $display("and_out=%b, xor_out=%b, taps=%b, lsfr_reg=%b", (lfsr_reg[N-1] & taps[N-1][N-1:0]), ^(lfsr_reg[N-1] & taps[N-1][N-1:0]), taps[N-1][N-1:0], lfsr_reg);
     // $display("count=%d, lfsr_reg=%b", count, lfsr_reg);
   end
-  count <= count + 1;
 end
 assign lfsr_done = count == ((1 << N) - 1);
 assign lfsr_data = lfsr_reg;
