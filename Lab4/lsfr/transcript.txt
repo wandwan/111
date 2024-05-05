@@ -1,4 +1,3 @@
- Loading rtl_work.lfsr_testbench
 run -all
 #  time=0,  reset=0  clk=0  load_seed=0  count= 0
 #  time=10,  reset=1  clk=1  load_seed=0  count= 0
