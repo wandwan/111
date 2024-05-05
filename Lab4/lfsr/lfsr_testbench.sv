@@ -34,7 +34,7 @@ module lfsr_testbench;
    #20;
    load_seed = 0;
 
-   #200;
+   #400;
     
    // terminate simulation
    $finish();
