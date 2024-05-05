@@ -11,7 +11,7 @@ module barrel_shifter (
 
 
 // Students to add code for barrel shifter
-wire [1:0][3:0] left_shifted, right_shifted, mux_out;
+logic [1:0][3:0] left_shifted, right_shifted, mux_out;
 always_comb begin
   left_shifted[0] = din << shift_value;
   left_shifted[1] = din << shift_value | din >> (4-shift_value);
