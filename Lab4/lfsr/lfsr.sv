@@ -32,6 +32,7 @@ always_ff @(posedge clk, negedge reset) begin
   end
   else begin
     lfsr_reg <= {lfsr_reg[N-2:0], ^(lfsr_reg[N-1] & taps[N-1][N-1:0])};
+    $$display("and_out=%b, xor_out=%b", (lfsr_reg[N-1] & taps[N-1][N-1:0]), ^(lfsr_reg[N-1] & taps[N-1][N-1:0]));
   end
   count <= count + 1;
 end
