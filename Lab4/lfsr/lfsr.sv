@@ -20,7 +20,7 @@ assign taps[7] = 8'b1011_1000;
 
 //student to add implementation for LFSR code 
 logic [N-1:0] lfsr_reg;
-logic [7:0] count;
+logic [7:0] count = 0;
 always_ff @(posedge clk, negedge reset) begin
   if(~reset) begin
     lfsr_reg <= 0;
