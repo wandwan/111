@@ -23,7 +23,27 @@ run -all
 #  time=210,  reset=1  clk=1  load_seed=0  count= 6
 #  time=220,  reset=1  clk=0  load_seed=0  count= 6
 #  time=230,  reset=1  clk=1  load_seed=0  count=13
+#  time=240,  reset=1  clk=0  load_seed=0  count=13
+#  time=250,  reset=1  clk=1  load_seed=0  count=10
+#  time=260,  reset=1  clk=0  load_seed=0  count=10
+#  time=270,  reset=1  clk=1  load_seed=0  count= 5
+#  time=280,  reset=1  clk=0  load_seed=0  count= 5
+#  time=290,  reset=1  clk=1  load_seed=0  count=11
+#  time=300,  reset=1  clk=0  load_seed=0  count=11
+#  time=310,  reset=1  clk=1  load_seed=0  count= 7
+#  time=320,  reset=1  clk=0  load_seed=0  count= 7
+#  time=330,  reset=1  clk=1  load_seed=0  count=15
+#  time=340,  reset=1  clk=0  load_seed=0  count=15
+#  time=350,  reset=1  clk=1  load_seed=0  count=14
+#  time=360,  reset=1  clk=0  load_seed=0  count=14
+#  time=370,  reset=1  clk=1  load_seed=0  count=12
+#  time=380,  reset=1  clk=0  load_seed=0  count=12
+#  time=390,  reset=1  clk=1  load_seed=0  count= 8
+#  time=400,  reset=1  clk=0  load_seed=0  count= 8
+#  time=410,  reset=1  clk=1  load_seed=0  count= 1
+#  time=420,  reset=1  clk=0  load_seed=0  count= 1
+#  time=430,  reset=1  clk=1  load_seed=0  count= 2
 # ** Note: $finish    : C:/Users/anw011/Downloads/111-main/Lab4/lfsr/lfsr_testbench.sv(40)
-#    Time: 240 ns  Iteration: 0  Instance: /lfsr_testbench
+#    Time: 440 ns  Iteration: 0  Instance: /lfsr_testbench
 # 1
 # Break in Module lfsr_testbench at C:/Users/anw011/Downloads/111-main/Lab4/lfsr/lfsr_testbench.sv line 40
