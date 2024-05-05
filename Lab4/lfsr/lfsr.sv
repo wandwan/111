@@ -35,7 +35,7 @@ always_ff @(posedge clk, negedge reset) begin
   end
   count <= count + 1;
 end
-assign lfsr_done = (count == N - 1);
+assign lfsr_done = (count == (1 << N) - 1);
 assign lfsr_data = lfsr_reg;
  
 endmodule: lfsr
