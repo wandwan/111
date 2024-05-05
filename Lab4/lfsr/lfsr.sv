@@ -9,14 +9,14 @@ module lfsr
 );
 
 logic [7:0][7:0] taps;
-taps[0] = 8'b0000_0000;
-taps[1] = 8'b0000_0011;
-taps[2] = 8'b0000_0110;
-taps[3] = 8'b0000_1100;
-taps[4] = 8'b0001_0100;
-taps[5] = 8'b0011_0000;
-taps[6] = 8'b0110_0000;
-taps[7] = 8'b1011_1000;
+assign taps[0] = 8'b0000_0000;
+assign taps[1] = 8'b0000_0011;
+assign taps[2] = 8'b0000_0110;
+assign taps[3] = 8'b0000_1100;
+assign taps[4] = 8'b0001_0100;
+assign taps[5] = 8'b0011_0000;
+assign taps[6] = 8'b0110_0000;
+assign taps[7] = 8'b1011_1000;
 
 //student to add implementation for LFSR code 
 logic [N-1:0] lfsr_reg;
