@@ -27,13 +27,13 @@ generate
       .sel(select),
       .out(mux_out[1][i])
     );
-    mux_2x1 mux_2x1_inst(
+    mux_2x1 mux_2x1_inst1(
       .in0(right_shifted[0][i]),
       .in1(right_shifted[1][i]),
       .sel(select),
       .out(mux_out[0][i])
     );
-    mux_2x1 mux_2x1_inst(
+    mux_2x1 mux_2x1_inst2(
       .in0(mux_out[0][i]),
       .in1(mux_out[1][i]),
       .sel(direction),
