@@ -20,7 +20,7 @@ assign taps[7] = 8'b1011_1000;
 
 //student to add implementation for LFSR code 
 logic [N-1:0] lfsr_reg;
-logic [7:0] count = 0;
+logic [N-1:0] count = 0;
 always_ff @(posedge clk, negedge reset) begin
   if(~reset) begin
     lfsr_reg <= 0;
@@ -33,8 +33,6 @@ always_ff @(posedge clk, negedge reset) begin
   else begin
     lfsr_reg <= {lfsr_reg[N-2:0], ^(lfsr_reg & taps[N-1][N-1:0])};
     count <= count + 1;
-    // $display("and_out=%b, xor_out=%b, taps=%b, lsfr_reg=%b", (lfsr_reg[N-1] & taps[N-1][N-1:0]), ^(lfsr_reg[N-1] & taps[N-1][N-1:0]), taps[N-1][N-1:0], lfsr_reg);
-    // $display("count=%d, lfsr_reg=%b", count, lfsr_reg);
   end
 end
 assign lfsr_done = count == ((1 << N) - 2);
