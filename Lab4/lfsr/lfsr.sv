@@ -9,8 +9,9 @@ module lfsr
 );
 
 //student to add implementation for LFSR code 
-logic [N-1:0] lfsr_reg;
+logic [N-1:0] lfsr_reg = 0;
 logic [N-1:0] count = 0;
+logic [N-1:0] end_const = ((1 << N) - 2);
 always_ff @(posedge clk, negedge reset) begin
   if(~reset) begin
     lfsr_reg <= 0;
@@ -21,20 +22,19 @@ always_ff @(posedge clk, negedge reset) begin
     count <= 0;
   end
   else begin
-    case(N):
+    case(N)
       2: lfsr_reg <= {lfsr_reg[0],lfsr_reg[0] ^ lfsr_reg[1]};
       3: lfsr_reg <= {lfsr_reg[1:0], lfsr_reg[2] ^ lfsr_reg[1]};
       4: lfsr_reg <= {lfsr_reg[2:0], lfsr_reg[3] ^ lfsr_reg[2]};
       5: lfsr_reg <= {lfsr_reg[3:0], lfsr_reg[4] ^ lfsr_reg[2]};
       6: lfsr_reg <= {lfsr_reg[4:0], lfsr_reg[5] ^ lfsr_reg[4]};
       7: lfsr_reg <= {lfsr_reg[5:0], lfsr_reg[6] ^ lfsr_reg[5]};
-      8: lfsrc_reg <= {lfsr_reg[6:0], lfsr_reg[7] ^ lfsr_reg[5] ^ lfsr_reg[4] ^ lfsr_reg[3]};
-      default: lfsr_reg <= lfsr_reg;
+      8: lfsr_reg <= {lfsr_reg[6:0], lfsr_reg[7] ^ lfsr_reg[5] ^ lfsr_reg[4] ^ lfsr_reg[3]};
     endcase
     count <= count + 1;
   end
 end
-assign lfsr_done = count == ((1 << N) - 2);
+assign lfsr_done = (count == end_const);
 assign lfsr_data = lfsr_reg;
  
 endmodule: lfsr

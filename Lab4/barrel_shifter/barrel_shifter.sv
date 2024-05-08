@@ -17,13 +17,13 @@ logic [3:0] final_out;
 logic [2:0] select_out;
 mux_2x1 select_0(
   .in0(0),
-  .in1(din[0]),
+  .in1(mux_in[0]),
   .sel(select),
   .out(select_out[0])
 );
 mux_2x1 select_1(
   .in0(0),
-  .in1(din[1]),
+  .in1(mux_in[1]),
   .sel(select),
   .out(select_out[1])
 );
@@ -87,7 +87,7 @@ mux_2x1 lvl2_4(
   .out(final_out[3])
 );
 
-@always_comb begin 
+always_comb begin 
   if(direction == 0) begin
     mux_in = din;
     dout = final_out;
