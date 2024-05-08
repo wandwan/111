@@ -11,36 +11,95 @@ module barrel_shifter (
 
 
 // Students to add code for barrel shifter
-logic [1:0][3:0] left_shifted, right_shifted, mux_out;
-always_comb begin
-  left_shifted[0] = din << shift_value;
-  left_shifted[1] = din << shift_value | din >> (4-shift_value);
-  right_shifted[0] = din >> shift_value;
-  right_shifted[1] = din >> shift_value | din << (4-shift_value);
-end
-genvar i;
-generate
-  for(i=0; i<4; i=i+1) begin: left_shift
-    mux_2x1 mux_2x1_inst(
-      .in0(left_shifted[0][i]),
-      .in1(left_shifted[1][i]),
-      .sel(select),
-      .out(mux_out[1][i])
-    );
-    mux_2x1 mux_2x1_inst1(
-      .in0(right_shifted[0][i]),
-      .in1(right_shifted[1][i]),
-      .sel(select),
-      .out(mux_out[0][i])
-    );
-    mux_2x1 mux_2x1_inst2(
-      .in0(mux_out[0][i]),
-      .in1(mux_out[1][i]),
-      .sel(direction),
-      .out(dout[i])
-    );
+logic [3:0] mux_in;
+logic [3:0] mux_out;
+logic [3:0] final_out;
+logic [2:0] select_out;
+mux_2x1 select_0(
+  .in0(0),
+  .in1(din[0]),
+  .sel(select),
+  .out(select_out[0])
+);
+mux_2x1 select_1(
+  .in0(0),
+  .in1(din[1]),
+  .sel(select),
+  .out(select_out[1])
+);
+mux_2x1 lvl1_1(
+  .in0(mux_in[0]),
+  .in1(mux_in[2]),
+  .sel(shift_value[1]),
+  .out(mux_out[0])
+);
+
+mux_2x1 lvl1_2(
+  .in0(mux_in[1]),
+  .in1(mux_in[3]),
+  .sel(shift_value[1]),
+  .out(mux_out[1])
+);
+mux_2x1 lvl1_3(
+  .in0(mux_in[2]),
+  .in1(select_out[0]),
+  .sel(shift_value[1]),
+  .out(mux_out[2])
+);
+
+mux_2x1 lvl1_4(
+  .in0(mux_in[3]),
+  .in1(select_out[1]),
+  .sel(shift_value[1]),
+  .out(mux_out[3])
+);
+
+mux_2x1 select_2(
+  .in0(0),
+  .in1(mux_out[0]),
+  .sel(select),
+  .out(select_out[2])
+);
+
+mux_2x1 lvl2_1(
+  .in0(mux_out[0]),
+  .in1(mux_out[1]),
+  .sel(shift_value[0]),
+  .out(final_out[0])
+);
+
+mux_2x1 lvl2_2(
+  .in0(mux_out[1]),
+  .in1(mux_out[2]),
+  .sel(shift_value[0]),
+  .out(final_out[1])
+);
+mux_2x1 lvl2_3(
+  .in0(mux_out[2]),
+  .in1(mux_out[3]),
+  .sel(shift_value[0]),
+  .out(final_out[2])
+);
+mux_2x1 lvl2_4(
+  .in0(mux_out[3]),
+  .in1(select_out[2]),
+  .sel(shift_value[0]),
+  .out(final_out[3])
+);
+
+@always_comb begin 
+  if(direction == 0) begin
+    mux_in = din;
+    dout = final_out;
   end
-endgenerate
+  else begin
+    mux_in = {din[0], din[1], din[2], din[3]};
+    dout = {final_out[0], final_out[1], final_out[2], final_out[3]};
+  end
+  
+end
+
+
 
 endmodule: barrel_shifter
 

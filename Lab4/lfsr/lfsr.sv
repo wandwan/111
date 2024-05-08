@@ -8,16 +8,6 @@ module lfsr
   output logic[N-1:0] lfsr_data
 );
 
-logic [7:0][7:0] taps;
-assign taps[0] = 8'b0000_0000;
-assign taps[1] = 8'b0000_0011;
-assign taps[2] = 8'b0000_0110;
-assign taps[3] = 8'b0000_1100;
-assign taps[4] = 8'b0001_0100;
-assign taps[5] = 8'b0011_0000;
-assign taps[6] = 8'b0110_0000;
-assign taps[7] = 8'b1011_1000;
-
 //student to add implementation for LFSR code 
 logic [N-1:0] lfsr_reg;
 logic [N-1:0] count = 0;
@@ -31,7 +21,16 @@ always_ff @(posedge clk, negedge reset) begin
     count <= 0;
   end
   else begin
-    lfsr_reg <= {lfsr_reg[N-2:0], ^(lfsr_reg & taps[N-1][N-1:0])};
+    case(N):
+      2: lfsr_reg <= {lfsr_reg[0],lfsr_reg[0] ^ lfsr_reg[1]};
+      3: lfsr_reg <= {lfsr_reg[1:0], lfsr_reg[2] ^ lfsr_reg[1]};
+      4: lfsr_reg <= {lfsr_reg[2:0], lfsr_reg[3] ^ lfsr_reg[2]};
+      5: lfsr_reg <= {lfsr_reg[3:0], lfsr_reg[4] ^ lfsr_reg[2]};
+      6: lfsr_reg <= {lfsr_reg[4:0], lfsr_reg[5] ^ lfsr_reg[4]};
+      7: lfsr_reg <= {lfsr_reg[5:0], lfsr_reg[6] ^ lfsr_reg[5]};
+      8: lfsrc_reg <= {lfsr_reg[6:0], lfsr_reg[7] ^ lfsr_reg[5] ^ lfsr_reg[4] ^ lfsr_reg[3]};
+      default: lfsr_reg <= lfsr_reg;
+    endcase
     count <= count + 1;
   end
 end
