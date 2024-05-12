@@ -44,9 +44,11 @@ enum logic[2:0]{
 //has same length as add_operand1 and add_operand2
 // Tie CIN to '0'
 carry_lookahead_adder #(.N(N+1)) adder_inst(
-
   // Student to add code
-
+.A(add_operand1),
+.B(add_operand2),
+.CIN(1'b0),
+.result({cla_carry, sum})
 );
 
 // Create negative multiplicand value
@@ -68,19 +70,24 @@ always_ff@(posedge clock, posedge reset) begin
         case(next_state)
         // Wait for start signal
 	IDLE: begin
-		
-             // Sudent to add code here
-
+             // Student to add code here
+                if (start) begin
+                    next_state <= INITIALIZE;
+                end
+                 else begin
+                    next_state <= IDLE;
+                 end
 	end
 
 	// Load Multiplicand and Multiplier in a load register and a shift register
         INITIALIZE: begin
                 // load multiplicand to load_reg_pos
                 // Student to Add Code Here
-
+                load_reg_pos <= multiplicand;
 
                 // load multiplicand_neg[N:0] to load_reg_neg
                 // Student to Add Code Here
+                load_reg_neg <= multiplicand_neg;
 
 
 		shift_reg 	<= {1'b0, {N{1'b0}}, multiplier, 1'b0};
@@ -98,29 +105,33 @@ always_ff@(posedge clock, posedge reset) begin
 	             // Pass positive Multiplicand to carry lookadahead adder input
 		     // Pass previous adder output value after shift to add with Multiplicand
 	             // move to add state
-                     
+                     next_state <= ADD;
                      
                      // Student to Add code
-
+                     add_operand1 <= load_reg_pos;
+                     add_operand2 <= shift_reg[(2*N):N+1]
 
 		end
 		else if(shift_reg[1:0] == 2'b10) begin
        		     // Pass negative Multiplicand to carry lookadahead adder input
                      // Pass previous adder output value after shift to add with Multiplicand
                      // move to add state
+                         next_state <= ADD;
 
                      // Student to Add code
-
+                         add_operand1 <= load_reg_neg;
+                         add_operand2 <= shift_reg[(2*N):N+1];
 
 		end
 		else begin
                       // assign add_operand1 to 0, Since no add operation to be perform pass 0 to carry lookadder input
                       // Pass previous adder output value after shift to add with Multiplicand	
 		      // move to shift and increment count state
-
+                        next_state <= SHIFT_AND_COUNT;
 
                        // Student to Add code
-
+                        add_operand1 <= 0;
+                        add_operand2 <= shift_reg[(2*N):N+1];
 		end
 	end
 
@@ -129,8 +140,7 @@ always_ff@(posedge clock, posedge reset) begin
                 
                 // Move to shift and increment count state
                 // Student to Add code here
-
-
+                next_state <= SHIFT_AND_COUNT;
 
 	end
 
@@ -139,16 +149,18 @@ always_ff@(posedge clock, posedge reset) begin
                 
                 // Increment count
                 // Student to Add code here
+                count <= count + 1;
 
 
                 if(count == N-1) begin // If 'N' times SHIFT operation performed then move to Done state else go back to Test state
                 
                     // Student to Add code here
+                        next_state <= DONE;
 	
                	end
-              	else begin
-               		
+              	else begin    		
                     // Student to Add code here
+                        next_state <= TEST;
 
             	end
       	end
