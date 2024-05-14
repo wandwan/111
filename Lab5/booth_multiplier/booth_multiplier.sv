@@ -109,7 +109,7 @@ always_ff@(posedge clock, posedge reset) begin
                      
                      // Student to Add code
                      add_operand1 <= load_reg_pos;
-                     add_operand2 <= shift_reg[(2*N):N+1]
+                     add_operand2 <= shift_reg[(2*N) + 1:N+1]
 
 		end
 		else if(shift_reg[1:0] == 2'b10) begin
@@ -120,7 +120,7 @@ always_ff@(posedge clock, posedge reset) begin
 
                      // Student to Add code
                          add_operand1 <= load_reg_neg;
-                         add_operand2 <= shift_reg[(2*N):N+1];
+                         add_operand2 <= shift_reg[(2*N) + 1:N+1];
 
 		end
 		else begin
@@ -131,12 +131,12 @@ always_ff@(posedge clock, posedge reset) begin
 
                        // Student to Add code
                         add_operand1 <= 0;
-                        add_operand2 <= shift_reg[(2*N):N+1];
+                        add_operand2 <= shift_reg[(2*N) + 1:N+1];
 		end
 	end
 
 	ADD: begin
-		shift_reg <= {sum, shift_reg[N:0]}; // Load shift register : Output sum from Adder which includes carry and retain previous lower bit of shift register
+		shift_reg <= {sum[N-1:0], shift_reg[N:0]}; // Load shift register : Output sum from Adder which includes carry and retain previous lower bit of shift register
                 
                 // Move to shift and increment count state
                 // Student to Add code here
