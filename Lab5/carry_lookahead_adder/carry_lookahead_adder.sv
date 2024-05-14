@@ -19,19 +19,20 @@ for (int i=1; i<N; i++) begin
 end
 end
 
-genvar i;
 fulladder fulladder_inst(
-  .A(A[0]),
-  .B(B[0]),
-  .CIN(CIN),
+  .a(A[0]),
+  .b(B[0]),
+  .cin(CIN),
   .sum(result[0]),
 );
+
+genvar i;
 generate
-  for (i=1; i<N; i++) begin
-    fulladder fulladder_1(
-      .A(A[i]),
-      .B(B[i]),
-      .CIN(C[i - 1]),
+  for (i = 1; i<N; i++) begin : gen_block
+    fulladder adder(
+      .a(A[i]),
+      .b(B[i]),
+      .cin(C[i - 1]),
       .sum(result[i]),
     );
   end
