@@ -36,13 +36,13 @@ module vending_machine_moore(
 
       CENTS_10: begin
         if (N)         next_state = CENTS_15;
-        else if (D)    next_state = CENTS_0;
+        else if (D)    next_state = CENTS_15;
         else           next_state = CENTS_10;
         open = 1'b0;
       end
 
       CENTS_15: begin
-        next_state = CENTS_0;
+        next_state = CENTS_15;
         open = 1'b1;
       end
 
