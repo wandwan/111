@@ -48,14 +48,14 @@ module vending_machine_mealy(
           if (r_N)      next_state = CENTS_10;
           else if (r_D) next_state = CENTS_15;
           else          next_state = CENTS_5;
-          open = 1'b0;
+          open = r_D;
         end
          
         CENTS_10: begin
           if (r_N)      next_state = CENTS_15;
           else if (r_D) next_state = CENTS_15;
           else          next_state = CENTS_10; 
-          open = r_D;
+          open = r_D || r_N;
         end
           
         CENTS_15: begin  
