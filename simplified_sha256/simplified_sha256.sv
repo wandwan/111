@@ -189,15 +189,7 @@ begin
           end
           i <= 16;
           on_first_block <= on_first_block + 1;
-        end else if (i < 64) begin
-          w[i] <= w[i-16] + (rightrotate(w[i-15], 7) ^ rightrotate(w[i-15], 18) ^ (w[i-15] >> 3)) + w[i-7] + (rightrotate(w[i-2], 17) ^ rightrotate(w[i-2], 19) ^ (w[i-2] >> 10));
-          w[i + 1] <= w[i-15] + (rightrotate(w[i-14], 7) ^ rightrotate(w[i-14], 18) ^ (w[i-14] >> 3)) + w[i-6] + (rightrotate(w[i-1], 17) ^ rightrotate(w[i-1], 19) ^ (w[i-1] >> 10));
-          i <= i + 2;
         end else begin
-          integer counter;
-          for (counter = 0; counter < 64; counter = counter + 1) begin
-            $display("w[%0d] = %x", counter, w[counter]);
-          end
           i <= 0;
           state <= COMPUTE;
         end
@@ -210,10 +202,11 @@ begin
     COMPUTE: begin
       $display("a = %x, b = %x, c = %x, d = %x, e = %x, f = %x, g = %x, h = %x", a, b, c, d, e, f, g, h);
 	// 64 processing rounds steps for 512-bit block 
-        if(i < 64) begin
+      if(i < 64) begin
           {a, b, c, d, e, f, g, h} <= sha256_op(a, b, c, d, e, f, g, h, w[i], i);
           i <= i + 1;
           state <= COMPUTE;
+          w[i+16] <= w[i] + (rightrotate(w[i+1], 7) ^ rightrotate(w[i+1], 18) ^ (w[i+1] >> 3)) + w[i+9] + (rightrotate(w[i+14], 17) ^ rightrotate(w[i+14], 19) ^ (w[i+14] >> 10));
         end else begin
           h0 <= h0 + a;
           h1 <= h1 + b;
