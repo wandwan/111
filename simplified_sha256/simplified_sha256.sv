@@ -9,12 +9,19 @@ module simplified_sha256 #(parameter integer NUM_OF_WORDS = 20)(
 // FSM state variables 
 enum logic [2:0] {IDLE, READ, BLOCK, COMPUTE, WRITE} state;
 
+function logic [31:0] wtnew; // function with no inputs
+  logic [31:0] s0, s1;
+  s0 = rightrotate(w[1],7)^rightrotate(w[1],18)^(w[1]>>3);
+  s1 = rightrotate(w[14],17)^rightrotate(w[14],19)^(w[14]>>10);
+  wtnew = w[0] + s0 + w[9] + s1;
+endfunction
+
 // NOTE : Below mentioned frame work is for reference purpose.
 // Local variables might not be complete and you might have to add more variables
 // or modify these variables. Code below is more as a reference.
 
 // Local variables
-logic [31:0] w[64];
+logic [31:0] w[16];
 logic [31:0] message[20];
 logic [31:0] wt;
 logic [31:0] h0, h1, h2, h3, h4, h5, h6, h7;
@@ -206,7 +213,10 @@ begin
           {a, b, c, d, e, f, g, h} <= sha256_op(a, b, c, d, e, f, g, h, w[i], i);
           i <= i + 1;
           state <= COMPUTE;
-          w[i+16] <= w[i] + (rightrotate(w[i+1], 7) ^ rightrotate(w[i+1], 18) ^ (w[i+1] >> 3)) + w[i+9] + (rightrotate(w[i+14], 17) ^ rightrotate(w[i+14], 19) ^ (w[i+14] >> 10));
+          if(i >= 14) begin
+            for (int n = 0; n < 15; n++) w[n] <= w[n+1]; // just wires
+          end
+          w[15] <= wtnew();
         end else begin
           h0 <= h0 + a;
           h1 <= h1 + b;
