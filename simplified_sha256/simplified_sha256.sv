@@ -27,13 +27,9 @@ logic [31:0] wt;
 logic [31:0] h0, h1, h2, h3, h4, h5, h6, h7;
 logic [31:0] a, b, c, d, e, f, g, h;
 logic [ 7:0] i, j;
-logic [15:0] offset; // in word address
-logic [ 7:0] num_blocks;
 logic        cur_we;
 logic [15:0] cur_addr;
 logic [31:0] cur_write_data;
-logic [512:0] memory_block;
-logic [ 7:0] tstep;
 logic [1:0] on_first_block;
 
 // SHA256 K constants
@@ -48,15 +44,6 @@ parameter int k[0:63] = '{
    32'h748f82ee,32'h78a5636f,32'h84c87814,32'h8cc70208,32'h90befffa,32'ha4506ceb,32'hbef9a3f7,32'hc67178f2
 };
 
-
-assign num_blocks = determine_num_blocks(NUM_OF_WORDS); 
-assign tstep = (i - 1);
-
-// Note : Function defined are for reference purpose. Feel free to add more functions or modify below.
-// Function to determine number of blocks in memory to fetch
-function logic [15:0] determine_num_blocks(input logic [31:0] size);
-  return (size >> 4) + (| (size & 16'h000F));
-endfunction
 
 
 // SHA256 hash round
@@ -82,7 +69,7 @@ endfunction
 // for reading from memory to get original message
 // for writing final computed has value
 assign mem_clk = clk;
-assign mem_addr = cur_addr + offset;
+assign mem_addr = cur_addr;
 assign mem_we = cur_we;
 assign mem_write_data = cur_write_data;
 
@@ -137,7 +124,6 @@ begin
         
         cur_we <= 0;
         cur_addr <= message_addr;
-        offset <= 0;
         j <= 0;
         i <= 0;
         on_first_block <= 1;
