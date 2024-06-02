@@ -21,7 +21,7 @@ endfunction
 // or modify these variables. Code below is more as a reference.
 
 // Local variables
-  logic [31:0] w[16];
+logic [31:0] w[16];
 logic [31:0] message[20];
 logic [31:0] wt;
 logic [31:0] h0, h1, h2, h3, h4, h5, h6, h7;
@@ -51,6 +51,7 @@ parameter int k[0:63] = '{
 
 assign num_blocks = determine_num_blocks(NUM_OF_WORDS); 
 assign tstep = (i - 1);
+assign wt = i > 15 ? w[15] : w[i];
 
 // Note : Function defined are for reference purpose. Feel free to add more functions or modify below.
 // Function to determine number of blocks in memory to fetch
@@ -212,11 +213,8 @@ begin
       if(i < 64) begin
           i <= i + 1;
           state <= COMPUTE;
-        if(i > 15) begin 
-          {a, b, c, d, e, f, g, h} <= sha256_op(a, b, c, d, e, f, g, h, w[15], i);
-        end else begin
-          {a, b, c, d, e, f, g, h} <= sha256_op(a, b, c, d, e, f, g, h, w[i], i);
-        end
+          
+        {a, b, c, d, e, f, g, h} <= sha256_op(a, b, c, d, e, f, g, h, wt, i);
         
         if(i >= 15) begin
           w[15] <= wtnew();
