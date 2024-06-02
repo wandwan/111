@@ -9,16 +9,8 @@ module bitcoin_hash (input logic        clk, reset_n, start,
 // Local variables for state transitions
 enum logic [2:0] {IDLE, READ, PHASE_ONE, PHASE_TWO, PHASE_THREE, WRITE} state;
 
-// Local variables for SHA PHASE 1
-logic start_sha1 = 0;
-logic [31:0] message_sha1[15:0];
-logic [31:0] size_sha1;
-logic [31:0] hin_sha1[7:0] = '{32'h5be0cd19, 32'h1f83d9ab, 32'h9b05688c, 32'h510e527f, 32'ha54ff53a, 32'h3c6ef372, 32'hbb67ae85, 32'h6a09e667};
-logic [31:0] hout_sha1[7:0];
-logic done_sha1;
-
-
-// Local variables for SHA PHASE 2 and 3
+// Local variables for SHA PHASE 1, 2, and 3
+logic [31:0] hin_init[7:0] = '{32'h5be0cd19, 32'h1f83d9ab, 32'h9b05688c, 32'h510e527f, 32'ha54ff53a, 32'h3c6ef372, 32'hbb67ae85, 32'h6a09e667};
 logic start_sha2 = 0;
 logic done_sha2;
 logic [31:0] hin_sha2[7:0];
@@ -86,18 +78,8 @@ assign mem_we = cur_we;
 assign mem_write_data = cur_write_data;
 
 
-// Module instantiation of SHA PHASE 1
-opt_sha256 sha_phase_one (
-    .clk(clk),
-    .reset_n(reset_n),
-    .start(start_sha1),
-    .message(message_orig[15:0]),
-    .hin(hin_sha1),
-    .hout(hout_sha1),
-    .done(done_sha1)
-);
-
-// Module instantiations for SHA PHASE 2 and 3
+// Module instantiations for SHA PHASE 1, 2, and 3
+// first module will be used for PHASE 1
 opt_sha256 sha_phase_two_and_three_n0 (
     .clk(clk),
     .reset_n(reset_n),
@@ -290,12 +272,14 @@ always_ff @(posedge clk, negedge reset_n) begin : bitcoin_hashing
                   j <= 0;
                   cur_addr <= message_addr;
                   state <= PHASE_ONE;
-                  start_sha1 <= 1'b1;
+                  message_sha2_n0 <= message_orig[15:0];
+                  start_sha2 <= 1'b1;
+                  hin_sha2 <= hin_init;
                 end
             end
             PHASE_ONE: begin
-                start_sha1 <= 1'b0;
-                if (done_sha1) begin
+                start_sha2 <= 1'b0;
+                if (done_sha2) begin
                     message_sha2_n0 <= '{32'd640, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h80000000, 32'd0, message_orig[18], message_orig[17], message_orig[16]};
                     message_sha2_n1 <= '{32'd640, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h80000000, 32'd1, message_orig[18], message_orig[17], message_orig[16]};
                     message_sha2_n2 <= '{32'd640, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h80000000, 32'd2, message_orig[18], message_orig[17], message_orig[16]};
@@ -312,7 +296,7 @@ always_ff @(posedge clk, negedge reset_n) begin : bitcoin_hashing
                     message_sha2_n13 <= '{32'd640, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h80000000, 32'd13, message_orig[18], message_orig[17], message_orig[16]};
                     message_sha2_n14 <= '{32'd640, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h80000000, 32'd14, message_orig[18], message_orig[17], message_orig[16]};
                     message_sha2_n15 <= '{32'd640, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h80000000, 32'd15, message_orig[18], message_orig[17], message_orig[16]};
-                    hin_sha2 <= hout_sha1;
+                    hin_sha2 <= hout_sha2_n0;
                     state <= PHASE_TWO;
                     start_sha2 <= 1'b1;
                 end else begin
@@ -338,7 +322,7 @@ always_ff @(posedge clk, negedge reset_n) begin : bitcoin_hashing
                     message_sha2_n13 <= '{32'd256, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h80000000, hout_sha2_n13[7], hout_sha2_n13[6], hout_sha2_n13[5], hout_sha2_n13[4], hout_sha2_n13[3], hout_sha2_n13[2], hout_sha2_n13[1], hout_sha2_n13[0]};
                     message_sha2_n14 <= '{32'd256, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h80000000, hout_sha2_n14[7], hout_sha2_n14[6], hout_sha2_n14[5], hout_sha2_n14[4], hout_sha2_n14[3], hout_sha2_n14[2], hout_sha2_n14[1], hout_sha2_n14[0]};
                     message_sha2_n15 <= '{32'd256, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h80000000, hout_sha2_n15[7], hout_sha2_n15[6], hout_sha2_n15[5], hout_sha2_n15[4], hout_sha2_n15[3], hout_sha2_n15[2], hout_sha2_n15[1], hout_sha2_n15[0]};
-                    hin_sha2 <= hin_sha1;
+                    hin_sha2 <= hin_init;
                     state <= PHASE_THREE;
                     start_sha2 <= 1'b1;
                 end else begin
