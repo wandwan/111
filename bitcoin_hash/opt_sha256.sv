@@ -111,13 +111,20 @@ begin
     COMPUTE: begin
 	// 64 processing rounds steps for 512-bit block 
       if(i < 64) begin
-          {a, b, c, d, e, f, g, h} <= sha256_op(a, b, c, d, e, f, g, h, w[i], i);
           i <= i + 1;
           state <= COMPUTE;
-          if(i >= 14) begin
-            for (int n = 0; n < 15; n++) w[n] <= w[n+1]; // just wires
-          end
+        if(i > 15) begin 
+          {a, b, c, d, e, f, g, h} <= sha256_op(a, b, c, d, e, f, g, h, w[15], i);
+        end else begin
+          {a, b, c, d, e, f, g, h} <= sha256_op(a, b, c, d, e, f, g, h, w[i], i);
+        end
+        
+        if(i >= 15) begin
           w[15] <= wtnew();
+          for (int n = 0; n < 15; n++) w[n] <= w[n+1]; // just wires
+        end else begin
+          for (int n = 0; n <= 15; n++) w[n] <= w[n];
+        end
         end else begin
           hout <= '{a, b, c, d, e, f, g, h};
           state <= WRITE;
