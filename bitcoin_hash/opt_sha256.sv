@@ -138,7 +138,7 @@ begin
     WRITE: begin
       for (j = 0; j < 8; j = j + 1) begin
         hout[j] <= hout[j] + hin[j];
-        end 
+      end 
         state <= IDLE;
         done <= 1'b1;
   end
