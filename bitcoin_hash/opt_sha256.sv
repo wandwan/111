@@ -10,7 +10,6 @@ enum logic [2:0] {IDLE, BLOCK, COMPUTE, WRITE} state;
 
 // Local variables
 logic [31:0] w[16];
-logic [31:0] wt;
 logic [31:0] a, b, c, d, e, f, g, h;
 logic  [7:0] i, j;
 
@@ -20,7 +19,6 @@ function logic [31:0] wtnew; // function with no inputs
   s1 = rightrotate(w[14],17)^rightrotate(w[14],19)^(w[14]>>10);
   wtnew = w[0] + s0 + w[9] + s1;
 endfunction
-assign wt = i > 15 ? w[15] : w[i];
 
 // NOTE : Below mentioned frame work is for reference purpose.
 // Local variables might not be complete and you might have to add more variables
@@ -113,15 +111,22 @@ begin
     COMPUTE: begin
 	// 64 processing rounds steps for 512-bit block 
       if(i < 64) begin
-          {a, b, c, d, e, f, g, h} <= sha256_op(a, b, c, d, e, f, g, h, wt, i);
           i <= i + 1;
           state <= COMPUTE;
-        if(i >= 15) begin
-            for (int n = 0; n < 15; n++) w[n] <= w[n+1]; // just wires
-          w[15] <= wtnew();
-          end
+        if(i > 15) begin 
+          {a, b, c, d, e, f, g, h} <= sha256_op(a, b, c, d, e, f, g, h, w[15], i);
         end else begin
-          hout <= '{h,g,f,e,d,c,b,a};
+          {a, b, c, d, e, f, g, h} <= sha256_op(a, b, c, d, e, f, g, h, w[i], i);
+        end
+        
+        if(i >= 15) begin
+          w[15] <= wtnew();
+          for (int n = 0; n < 15; n++) w[n] <= w[n+1]; // just wires
+        end else begin
+          for (int n = 0; n <= 15; n++) w[n] <= w[n];
+        end
+        end else begin
+          hout <= '{a, b, c, d, e, f, g, h};
           state <= WRITE;
           i <= 0;
         end
@@ -132,8 +137,8 @@ begin
     // write back these h0 to h7 to memory starting from output_addr
     WRITE: begin
       for (j = 0; j < 8; j = j + 1) begin
-        hout[j] <= hout[j] + hin[7 - j];
-        end
+        hout[7-j] <= hout[j] + hin[j];
+        end 
         state <= IDLE;
         done <= 1'b1;
   end
