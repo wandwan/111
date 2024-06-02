@@ -1,13 +1,17 @@
-module simplified_sha256 #(parameter integer NUM_OF_WORDS = 20)(
+module opt_sha256 #(parameter integer NUM_OF_WORDS = 20)(
  input logic  clk, reset_n, start,
  input logic  [31:0] message[15:0],
- input logic [31:0] size,
  input logic [31:0] hin[7:0],
- output logic [31:0] hout[15:0],
+ output logic [31:0] hout[7:0],
  output logic done);
 
 // FSM state variables 
 enum logic [2:0] {IDLE, BLOCK, COMPUTE, WRITE} state;
+
+// Local variables
+logic [31:0] w[16];
+logic [31:0] a, b, c, d, e, f, g, h;
+logic  [7:0] i, j;
 
 function logic [31:0] wtnew; // function with no inputs
   logic [31:0] s0, s1;
@@ -19,12 +23,6 @@ endfunction
 // NOTE : Below mentioned frame work is for reference purpose.
 // Local variables might not be complete and you might have to add more variables
 // or modify these variables. Code below is more as a reference.
-
-// Local variables
-logic [31:0] w[16];
-logic [31:0] wt;
-logic [31:0] a, b, c, d, e, f, g, h;
-logic [ 7:0] i;
 
 // SHA256 K constants
 parameter int k[0:63] = '{
@@ -80,11 +78,13 @@ always_ff @(posedge clk, negedge reset_n)
 begin
   if (!reset_n) begin
     state <= IDLE;
+    done <= 1'b0;
   end 
   else begin 
     case (state)
     // Initialize hash values h0 to h7 and a to h, other variables and memory we, address offset, etc
     IDLE: begin 
+       done <= 1'b0;
        if(start) begin
        // Student to add rest of the code
         i <= 0;
@@ -97,13 +97,10 @@ begin
     // Get a BLOCK from the memory, COMPUTE Hash output using SHA256 function    
     // and write back hash value back to memory
     BLOCK: begin
-        {a, b, c, d, e, f, g, h} <= hin;
-        genvar j;
-        generate
+        '{a, b, c, d, e, f, g, h} <= hin;
           for (j = 0; j < 16; j = j + 1) begin
             w[j] <= message[j];
           end
-        endgenerate
         i <= 0;
         state <= COMPUTE;
     end
@@ -122,7 +119,7 @@ begin
           end
           w[15] <= wtnew();
         end else begin
-          h_out <= {a, b, c, d, e, f, g, h};
+          hout <= '{a, b, c, d, e, f, g, h};
           state <= WRITE;
           i <= 0;
         end
@@ -132,14 +129,14 @@ begin
     // h0 to h7 after compute stage has final computed hash value
     // write back these h0 to h7 to memory starting from output_addr
     WRITE: begin
-        h_out <= h_in + h_out;
+        for (j = 0; j < 7; j = j + 1) begin
+          hout[j] <= hout[j] + hin[j];
+        end
         state <= IDLE;
+        done <= 1'b1;
   end
     endcase
   end
 end
-
-// Generate done when SHA256 hash computation has finished and moved to IDLE state
-assign done = (state == IDLE);
 
 endmodule
