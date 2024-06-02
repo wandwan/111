@@ -1,4 +1,4 @@
-//`include "opt_sha256.sv"
+`include "opt_sha256.sv"
 module bitcoin_hash (input logic        clk, reset_n, start,
                      input logic [15:0] message_addr, output_addr,
                     output logic        done, mem_clk, mem_we,
@@ -10,12 +10,25 @@ module bitcoin_hash (input logic        clk, reset_n, start,
 logic start_sha1 = 0;
 logic [31:0] message_sha1[15:0];
 logic [31:0] size_sha1;
-logic [31:0] hin_sha1[7:0] = '{32'h6a09e667, 32'hbb67ae85, 32'h3c6ef372, 32'ha54ff53a, 32'h510e527f, 32'h9b05688c, 32'h1f83d9ab, 32'h5be0cd19};
+logic [31:0] hin_sha1[7:0] = '{32'h5be0cd19, 32'h1f83d9ab, 32'h9b05688c, 32'h510e527f, 32'ha54ff53a, 32'h3c6ef372, 32'hbb67ae85, 32'h6a09e667};
 logic [31:0] hout_sha1[7:0];
 logic done_sha1;
 
+
+
+// Local variables for SHA PHASE 2 
+logic start_sha2 = 0;
+logic done_sha2;
+// logic [31:0] hin_sha2[7:0] = hout_sha1 //
+
+logic [31:0] hout_sha2_n0[7:0];
+logic [31:0] message_sha2_n0[15:0];
+
+
+
+
 // Local variables for state transitions
-enum logic [2:0] {IDLE, READ, PREP_ONE, PHASE_ONE, PHASE_TWO, PHASE_THREE} state;
+enum logic [2:0] {IDLE, READ, PHASE_ONE, PREP_PHASE_TWO, PHASE_TWO, PHASE_THREE} state;
 
 // Local variables for storing final hash values per nonce
 parameter num_nonces = 16;
@@ -40,12 +53,22 @@ opt_sha256 sha_phase_one (
     .clk(clk),
     .reset_n(reset_n),
     .start(start_sha1),
-    .message(message_sha1),
+    .message(message_orig[15:0]),
     .hin(hin_sha1),
     .hout(hout_sha1),
     .done(done_sha1)
 );
 
+// Module instantiations for SHA PHASE 2
+opt_sha256 sha_phase_two_n0 (
+    .clk(clk),
+    .reset_n(reset_n),
+    .start(start_sha2),
+    .message(message_sha2_n0),
+    .hin(hout_sha1),
+    .hout(hout_sha2_n0),
+    .done(done_sha2)
+);
 
 // State machine logic for performing bitcoin hashing
 always_ff @(posedge clk, negedge reset_n) begin : bitcoin_hashing
@@ -77,26 +100,30 @@ always_ff @(posedge clk, negedge reset_n) begin : bitcoin_hashing
                 end else begin
                   j <= 0;
                   cur_addr <= message_addr;
-                  state <= PREP_ONE;
+                  state <= PHASE_ONE;
+                  start_sha1 <= 1'b1;
                 end
-            end
-            PREP_ONE: begin
-                for (int i = 0; i < 16; i = i+1) begin
-                    message_sha1[i] <= message_orig[i];
-                end
-                state <= PHASE_ONE;
             end
             PHASE_ONE: begin
-                start_sha1 <= 1'b1;
+                start_sha1 <= 1'b0;
                 if (done_sha1) begin
-                    state <= IDLE;
-                    done <= 1'b1;
+                    state <= PREP_PHASE_TWO;
                 end else begin
                     state <= PHASE_ONE;
                 end
             end
+            PREP_PHASE_TWO: begin
+                message_sha2_n0 <= {32'd640, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h00000000, 32'h80000000, 32'd0, message_orig[18:16]};
+                state <= PHASE_TWO;
+            end
             PHASE_TWO: begin
-                
+                start_sha2 <= 1'b1;
+                if (done_sha2) begin
+                    state <= IDLE;
+                    done <= 1'b1;
+                end else begin
+                    state <= PHASE_TWO;
+                end
             end
             default: begin
                 state <= IDLE;

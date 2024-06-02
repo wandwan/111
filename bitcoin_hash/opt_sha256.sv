@@ -97,7 +97,7 @@ begin
     // Get a BLOCK from the memory, COMPUTE Hash output using SHA256 function    
     // and write back hash value back to memory
     BLOCK: begin
-        '{a, b, c, d, e, f, g, h} <= hin;
+        '{h, g, f, e, d, c, b, a} <= hin;
           for (j = 0; j < 16; j = j + 1) begin
             w[j] <= message[j];
           end
@@ -126,7 +126,7 @@ begin
           for (int n = 0; n <= 15; n++) w[n] <= w[n];
         end
         end else begin
-          hout <= '{a, b, c, d, e, f, g, h};
+          hout <= '{h, g, f, e, d, c, b, a};
           state <= WRITE;
           i <= 0;
         end
@@ -137,7 +137,7 @@ begin
     // write back these h0 to h7 to memory starting from output_addr
     WRITE: begin
       for (j = 0; j < 8; j = j + 1) begin
-        hout[7-j] <= hout[j] + hin[j];
+        hout[j] <= hout[j] + hin[j];
         end 
         state <= IDLE;
         done <= 1'b1;
