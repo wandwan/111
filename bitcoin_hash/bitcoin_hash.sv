@@ -7,7 +7,7 @@ module bitcoin_hash (input logic        clk, reset_n, start,
                      input logic [31:0] mem_read_data);
 
 // Local variables for state transitions
-enum logic [2:0] {IDLE, READ, PHASE_ONE, PREP_PHASE_TWO, PHASE_TWO, PREP_PHASE_THREE, PHASE_THREE, WRITE} state;
+enum logic [2:0] {IDLE, READ, PHASE_ONE, PHASE_TWO, PHASE_THREE, WRITE} state;
 
 // Local variables for SHA PHASE 1
 logic start_sha1 = 0;
