@@ -15,7 +15,7 @@ logic [31:0] hout_sha1[7:0];
 logic done_sha1;
 
 // Local variables for state transitions
-enum logic [2:0] {IDLE, READ, PHASE_ONE, PHASE_TWO, PHASE_THREE} state;
+enum logic [2:0] {IDLE, READ, PREP_ONE, PHASE_ONE, PHASE_TWO, PHASE_THREE} state;
 
 // Local variables for storing final hash values per nonce
 parameter num_nonces = 16;
@@ -26,6 +26,7 @@ logic        cur_we;
 logic [15:0] cur_addr;
 logic [31:0] cur_write_data;
 logic [ 7:0] j;
+logic [31:0] message_orig[19:0];
 
 // Logic for continuously assigning memory addresses to read and write to data
 assign mem_clk = clk;
@@ -66,9 +67,9 @@ always_ff @(posedge clk, negedge reset_n) begin : bitcoin_hashing
                 end
             end
             READ: begin
-                if (j < 17) begin
+                if (j < 21) begin
                   if(j != 0) begin
-                    message_sha1[j-1] <= mem_read_data;
+                    message_orig[j-1] <= mem_read_data;
                   end
                   cur_addr <= cur_addr + 1;
                   j <= j + 1;
@@ -76,8 +77,14 @@ always_ff @(posedge clk, negedge reset_n) begin : bitcoin_hashing
                 end else begin
                   j <= 0;
                   cur_addr <= message_addr;
-                  state <= PHASE_ONE;
+                  state <= PREP_ONE;
                 end
+            end
+            PREP_ONE: begin
+                for (int i = 0; i < 16; i = i+1) begin
+                    message_sha1[i] <= message_orig[i];
+                end
+                state <= PHASE_ONE;
             end
             PHASE_ONE: begin
                 start_sha1 <= 1'b1;
@@ -87,6 +94,9 @@ always_ff @(posedge clk, negedge reset_n) begin : bitcoin_hashing
                 end else begin
                     state <= PHASE_ONE;
                 end
+            end
+            PHASE_TWO: begin
+                
             end
             default: begin
                 state <= IDLE;
