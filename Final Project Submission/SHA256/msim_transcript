@@ -1,0 +1,252 @@
+# Reading pref.tcl
+# do simplified_sha256_run_msim_rtl_verilog.do
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Model Technology ModelSim - Intel FPGA Edition vmap 2020.1 Lib Mapping Utility 2020.02 Feb 28 2020
+# vmap work rtl_work 
+# Copying C:/intelFPGA_lite/20.1/modelsim_ase/win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# 
+# vlog -sv -work work +incdir+H:/simplified_sha256 {H:/simplified_sha256/simplified_sha256.sv}
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 22:13:00 on Jun 04,2024
+# vlog -reportprogress 300 -sv -work work "+incdir+H:/simplified_sha256" H:/simplified_sha256/simplified_sha256.sv 
+# -- Compiling module simplified_sha256
+# 
+# Top level modules:
+# 	simplified_sha256
+# End time: 22:13:03 on Jun 04,2024, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0
+# 
+vlog -reportprogress 300 -work work H:/simplified_sha256/simplified_sha256.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 22:13:59 on Jun 04,2024
+# vlog -reportprogress 300 -work work H:/simplified_sha256/simplified_sha256.sv 
+# -- Compiling module simplified_sha256
+# 
+# Top level modules:
+# 	simplified_sha256
+# End time: 22:14:02 on Jun 04,2024, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0
+vlog -reportprogress 300 -work work H:/simplified_sha256/tb_simplified_sha256.sv
+# Model Technology ModelSim - Intel FPGA Edition vlog 2020.1 Compiler 2020.02 Feb 28 2020
+# Start time: 22:14:02 on Jun 04,2024
+# vlog -reportprogress 300 -work work H:/simplified_sha256/tb_simplified_sha256.sv 
+# -- Compiling module tb_simplified_sha256
+# 
+# Top level modules:
+# 	tb_simplified_sha256
+# End time: 22:14:05 on Jun 04,2024, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 0
+vsim work.tb_simplified_sha256
+# vsim work.tb_simplified_sha256 
+# Start time: 22:14:13 on Jun 04,2024
+# Loading sv_std.std
+# Loading work.tb_simplified_sha256
+# Loading work.simplified_sha256
+add wave  \
+sim:/tb_simplified_sha256/simplified_sha256_inst/h0 \
+sim:/tb_simplified_sha256/simplified_sha256_inst/h1 \
+sim:/tb_simplified_sha256/simplified_sha256_inst/h2 \
+sim:/tb_simplified_sha256/simplified_sha256_inst/h3 \
+sim:/tb_simplified_sha256/simplified_sha256_inst/h4 \
+sim:/tb_simplified_sha256/simplified_sha256_inst/h5 \
+sim:/tb_simplified_sha256/simplified_sha256_inst/h6 \
+sim:/tb_simplified_sha256/simplified_sha256_inst/h7 \
+sim:/tb_simplified_sha256/simplified_sha256_inst/a \
+sim:/tb_simplified_sha256/simplified_sha256_inst/b \
+sim:/tb_simplified_sha256/simplified_sha256_inst/c \
+sim:/tb_simplified_sha256/simplified_sha256_inst/d \
+sim:/tb_simplified_sha256/simplified_sha256_inst/e \
+sim:/tb_simplified_sha256/simplified_sha256_inst/f \
+sim:/tb_simplified_sha256/simplified_sha256_inst/g \
+sim:/tb_simplified_sha256/simplified_sha256_inst/h
+# ** Warning: (vsim-WLF-5000) WLF file currently in use: vsim.wlf
+#           File in use by: nnandhakumar  Hostname: 6EE4B07872FD42A  ProcessID: 1076
+#           Attempting to use alternate WLF file "./wlftczgigi".
+# ** Warning: (vsim-WLF-5001) Could not open WLF file: vsim.wlf
+#           Using alternate file: ./wlftczgigi
+run -all
+# --------
+# MESSAGE:
+# --------
+# 01234567
+# 02468ace
+# 048d159c
+# 091a2b38
+# 12345670
+# 2468ace0
+# 48d159c0
+# 91a2b380
+# 23456701
+# 468ace02
+# 8d159c04
+# 1a2b3809
+# 34567012
+# 68ace024
+# d159c048
+# a2b38091
+# 45670123
+# 8ace0246
+# 159c048d
+# 00000000
+# ***************************
+# 
+# a = 6a09e667, b = bb67ae85, c = 3c6ef372, d = a54ff53a, e = 510e527f, f = 9b05688c, g = 1f83d9ab, h = 5be0cd19
+# a = fd2bcdb4, b = 6a09e667, c = bb67ae85, d = 3c6ef372, e = 99eb2809, f = 510e527f, g = 9b05688c, h = 1f83d9ab
+# a = 71d8370c, b = fd2bcdb4, c = 6a09e667, d = bb67ae85, e = b53f7212, f = 99eb2809, g = 510e527f, h = 9b05688c
+# a = fb8d87c9, b = 71d8370c, c = fd2bcdb4, d = 6a09e667, e = 79219c65, f = b53f7212, g = 99eb2809, h = 510e527f
+# a = ef8c3c5e, b = fb8d87c9, c = 71d8370c, d = fd2bcdb4, e = e95900c9, f = 79219c65, g = b53f7212, h = 99eb2809
+# a = 5a271f12, b = ef8c3c5e, c = fb8d87c9, d = 71d8370c, e = f1e1acb2, f = e95900c9, g = 79219c65, h = b53f7212
+# a = b81ea495, b = 5a271f12, c = ef8c3c5e, d = fb8d87c9, e = 3c025cb3, f = f1e1acb2, g = e95900c9, h = 79219c65
+# a = cb8bd1b0, b = b81ea495, c = 5a271f12, d = ef8c3c5e, e = 9cd2de33, f = 3c025cb3, g = f1e1acb2, h = e95900c9
+# a = 6edd596a, b = cb8bd1b0, c = b81ea495, d = 5a271f12, e = f437951c, f = 9cd2de33, g = 3c025cb3, h = f1e1acb2
+# a = 64e7cc95, b = 6edd596a, c = cb8bd1b0, d = b81ea495, e = aeed90ec, f = f437951c, g = 9cd2de33, h = 3c025cb3
+# a = 349edcb3, b = 64e7cc95, c = 6edd596a, d = cb8bd1b0, e = db4d2610, f = aeed90ec, g = f437951c, h = 9cd2de33
+# a = dd2ba20d, b = 349edcb3, c = 64e7cc95, d = 6edd596a, e = f00ab802, f = db4d2610, g = aeed90ec, h = f437951c
+# a = 8f7a99e2, b = dd2ba20d, c = 349edcb3, d = 64e7cc95, e = bffbf00d, f = f00ab802, g = db4d2610, h = aeed90ec
+# a = 34a91b17, b = 8f7a99e2, c = dd2ba20d, d = 349edcb3, e = 75a8f778, f = bffbf00d, g = f00ab802, h = db4d2610
+# a = a452b59b, b = 34a91b17, c = 8f7a99e2, d = dd2ba20d, e = 89c637e8, f = 75a8f778, g = bffbf00d, h = f00ab802
+# a = 04c2c5b0, b = a452b59b, c = 34a91b17, d = 8f7a99e2, e = 2e53ecc8, f = 89c637e8, g = 75a8f778, h = bffbf00d
+# a = 5ae968df, b = 04c2c5b0, c = a452b59b, d = 34a91b17, e = 9dfb15c5, f = 2e53ecc8, g = 89c637e8, h = 75a8f778
+# a = 5358250b, b = 5ae968df, c = 04c2c5b0, d = a452b59b, e = 4d5a6a70, f = 9dfb15c5, g = 2e53ecc8, h = 89c637e8
+# a = 77994ddd, b = 5358250b, c = 5ae968df, d = 04c2c5b0, e = 2d0adf0f, f = 4d5a6a70, g = 9dfb15c5, h = 2e53ecc8
+# a = 614961db, b = 77994ddd, c = 5358250b, d = 5ae968df, e = bbf81f49, f = 2d0adf0f, g = 4d5a6a70, h = 9dfb15c5
+# a = cf1f550d, b = 614961db, c = 77994ddd, d = 5358250b, e = c3a11859, f = bbf81f49, g = 2d0adf0f, h = 4d5a6a70
+# a = 565de058, b = cf1f550d, c = 614961db, d = 77994ddd, e = 9b9f2501, f = c3a11859, g = bbf81f49, h = 2d0adf0f
+# a = dc467570, b = 565de058, c = cf1f550d, d = 614961db, e = abadb654, f = 9b9f2501, g = c3a11859, h = bbf81f49
+# a = a5635ce4, b = dc467570, c = 565de058, d = cf1f550d, e = a30a8d49, f = abadb654, g = 9b9f2501, h = c3a11859
+# a = 0f064bc2, b = a5635ce4, c = dc467570, d = 565de058, e = c6cfbda9, f = a30a8d49, g = abadb654, h = 9b9f2501
+# a = b75b55fe, b = 0f064bc2, c = a5635ce4, d = dc467570, e = bb73f578, f = c6cfbda9, g = a30a8d49, h = abadb654
+# a = e9f7c796, b = b75b55fe, c = 0f064bc2, d = a5635ce4, e = af8649a8, f = bb73f578, g = c6cfbda9, h = a30a8d49
+# a = 851f350c, b = e9f7c796, c = b75b55fe, d = 0f064bc2, e = 2156641e, f = af8649a8, g = bb73f578, h = c6cfbda9
+# a = 1870ce4c, b = 851f350c, c = e9f7c796, d = b75b55fe, e = 8c1fecc2, f = 2156641e, g = af8649a8, h = bb73f578
+# a = 31bf60f9, b = 1870ce4c, c = 851f350c, d = e9f7c796, e = a85d2f77, f = 8c1fecc2, g = 2156641e, h = af8649a8
+# a = 8fd84be2, b = 31bf60f9, c = 1870ce4c, d = 851f350c, e = b26afe29, f = a85d2f77, g = 8c1fecc2, h = 2156641e
+# a = 924e2a1d, b = 8fd84be2, c = 31bf60f9, d = 1870ce4c, e = 5fa72e3c, f = b26afe29, g = a85d2f77, h = 8c1fecc2
+# a = 8ffa7370, b = 924e2a1d, c = 8fd84be2, d = 31bf60f9, e = 07b56804, f = 5fa72e3c, g = b26afe29, h = a85d2f77
+# a = aa104e45, b = 8ffa7370, c = 924e2a1d, d = 8fd84be2, e = fa3e229e, f = 07b56804, g = 5fa72e3c, h = b26afe29
+# a = 1867b2ee, b = aa104e45, c = 8ffa7370, d = 924e2a1d, e = c4553ec0, f = fa3e229e, g = 07b56804, h = 5fa72e3c
+# a = c187d02b, b = 1867b2ee, c = aa104e45, d = 8ffa7370, e = 39c0effd, f = c4553ec0, g = fa3e229e, h = 07b56804
+# a = ed870afd, b = c187d02b, c = 1867b2ee, d = aa104e45, e = 86fa54cc, f = 39c0effd, g = c4553ec0, h = fa3e229e
+# a = 648a4048, b = ed870afd, c = c187d02b, d = 1867b2ee, e = 146da26d, f = 86fa54cc, g = 39c0effd, h = c4553ec0
+# a = ffba62ec, b = 648a4048, c = ed870afd, d = c187d02b, e = 003a3f9f, f = 146da26d, g = 86fa54cc, h = 39c0effd
+# a = 4616f65d, b = ffba62ec, c = 648a4048, d = ed870afd, e = 5911ad06, f = 003a3f9f, g = 146da26d, h = 86fa54cc
+# a = 734939d1, b = 4616f65d, c = ffba62ec, d = 648a4048, e = 417eea4a, f = 5911ad06, g = 003a3f9f, h = 146da26d
+# a = 5d233594, b = 734939d1, c = 4616f65d, d = ffba62ec, e = 93d4710f, f = 417eea4a, g = 5911ad06, h = 003a3f9f
+# a = daa703b0, b = 5d233594, c = 734939d1, d = 4616f65d, e = 4c21bbbf, f = 93d4710f, g = 417eea4a, h = 5911ad06
+# a = a7e26f12, b = daa703b0, c = 5d233594, d = 734939d1, e = dbb45d21, f = 4c21bbbf, g = 93d4710f, h = 417eea4a
+# a = 2a3df93c, b = a7e26f12, c = daa703b0, d = 5d233594, e = 65121d35, f = dbb45d21, g = 4c21bbbf, h = 93d4710f
+# a = 5e8b7c6d, b = 2a3df93c, c = a7e26f12, d = daa703b0, e = dc7c67c9, f = 65121d35, g = dbb45d21, h = 4c21bbbf
+# a = 5e34c4e9, b = 5e8b7c6d, c = 2a3df93c, d = a7e26f12, e = 70f6ad23, f = dc7c67c9, g = 65121d35, h = dbb45d21
+# a = d48516ee, b = 5e34c4e9, c = 5e8b7c6d, d = 2a3df93c, e = 7a5523af, f = 70f6ad23, g = dc7c67c9, h = 65121d35
+# a = ba972915, b = d48516ee, c = 5e34c4e9, d = 5e8b7c6d, e = 704372a3, f = 7a5523af, g = 70f6ad23, h = dc7c67c9
+# a = d0aa3984, b = ba972915, c = d48516ee, d = 5e34c4e9, e = d5f468ee, f = 704372a3, g = 7a5523af, h = 70f6ad23
+# a = 196e74bd, b = d0aa3984, c = ba972915, d = d48516ee, e = 5631e7b0, f = d5f468ee, g = 704372a3, h = 7a5523af
+# a = 552a2f75, b = 196e74bd, c = d0aa3984, d = ba972915, e = 369f6a95, f = 5631e7b0, g = d5f468ee, h = 704372a3
+# a = 7a3cb6c7, b = 552a2f75, c = 196e74bd, d = d0aa3984, e = 5d4baa4f, f = 369f6a95, g = 5631e7b0, h = d5f468ee
+# a = cc8fc5d6, b = 7a3cb6c7, c = 552a2f75, d = 196e74bd, e = a99be6a9, f = 5d4baa4f, g = 369f6a95, h = 5631e7b0
+# a = 95736775, b = cc8fc5d6, c = 7a3cb6c7, d = 552a2f75, e = b0306622, f = a99be6a9, g = 5d4baa4f, h = 369f6a95
+# a = ea20135c, b = 95736775, c = cc8fc5d6, d = 7a3cb6c7, e = cf9cb6e7, f = b0306622, g = a99be6a9, h = 5d4baa4f
+# a = 4b4fefac, b = ea20135c, c = 95736775, d = cc8fc5d6, e = d94738a0, f = cf9cb6e7, g = b0306622, h = a99be6a9
+# a = 8b81414b, b = 4b4fefac, c = ea20135c, d = 95736775, e = 3c9e8eec, f = d94738a0, g = cf9cb6e7, h = b0306622
+# a = 9491c74d, b = 8b81414b, c = 4b4fefac, d = ea20135c, e = 714ac900, f = 3c9e8eec, g = d94738a0, h = cf9cb6e7
+# a = b77a55ce, b = 9491c74d, c = 8b81414b, d = 4b4fefac, e = fdc2bece, f = 714ac900, g = 3c9e8eec, h = d94738a0
+# a = fa8a8352, b = b77a55ce, c = 9491c74d, d = 8b81414b, e = c34d1933, f = fdc2bece, g = 714ac900, h = 3c9e8eec
+# a = 4d54f7f1, b = fa8a8352, c = b77a55ce, d = 9491c74d, e = 94033284, f = c34d1933, g = fdc2bece, h = 714ac900
+# a = 875ec88c, b = 4d54f7f1, c = fa8a8352, d = b77a55ce, e = 5d952599, f = 94033284, g = c34d1933, h = fdc2bece
+# a = edc32b82, b = 875ec88c, c = 4d54f7f1, d = fa8a8352, e = b74d02b8, f = 5d952599, g = 94033284, h = c34d1933
+# a = cc61188c, b = edc32b82, c = 875ec88c, d = 4d54f7f1, e = 0dcb0110, f = b74d02b8, g = 5d952599, h = 94033284
+# a = 366afef3, b = a92ada07, c = c3cdbbfe, d = f2a4ed2b, e = 5ed9538f, f = 52526b44, g = 7d18ff44, h = efe3ff9d
+# a = 40c35490, b = 366afef3, c = a92ada07, d = c3cdbbfe, e = fe048692, f = 5ed9538f, g = 52526b44, h = 7d18ff44
+# a = 4da0bea6, b = 40c35490, c = 366afef3, d = a92ada07, e = 372309d4, f = fe048692, g = 5ed9538f, h = 52526b44
+# a = c1ea1ae4, b = 4da0bea6, c = 40c35490, d = 366afef3, e = 41911a9f, f = 372309d4, g = fe048692, h = 5ed9538f
+# a = 7f112f43, b = c1ea1ae4, c = 4da0bea6, d = 40c35490, e = 2462f4a4, f = 41911a9f, g = 372309d4, h = fe048692
+# a = 2eceb5ea, b = 7f112f43, c = c1ea1ae4, d = 4da0bea6, e = 408f0cef, f = 2462f4a4, g = 41911a9f, h = 372309d4
+# a = 87924081, b = 2eceb5ea, c = 7f112f43, d = c1ea1ae4, e = 47334b91, f = 408f0cef, g = 2462f4a4, h = 41911a9f
+# a = 3f230e3b, b = 87924081, c = 2eceb5ea, d = 7f112f43, e = a49058b0, f = 47334b91, g = 408f0cef, h = 2462f4a4
+# a = 11f506a8, b = 3f230e3b, c = 87924081, d = 2eceb5ea, e = 2f5a5ad6, f = a49058b0, g = 47334b91, h = 408f0cef
+# a = 28f86f3d, b = 11f506a8, c = 3f230e3b, d = 87924081, e = 5aecb039, f = 2f5a5ad6, g = a49058b0, h = 47334b91
+# a = a884aa05, b = 28f86f3d, c = 11f506a8, d = 3f230e3b, e = 23ba339e, f = 5aecb039, g = 2f5a5ad6, h = a49058b0
+# a = ff964d92, b = a884aa05, c = 28f86f3d, d = 11f506a8, e = ed20b59a, f = 23ba339e, g = 5aecb039, h = 2f5a5ad6
+# a = 33df8947, b = ff964d92, c = a884aa05, d = 28f86f3d, e = 12fbfcb2, f = ed20b59a, g = 23ba339e, h = 5aecb039
+# a = c7459838, b = 33df8947, c = ff964d92, d = a884aa05, e = 3bbc1e0c, f = 12fbfcb2, g = ed20b59a, h = 23ba339e
+# a = 89076d65, b = c7459838, c = 33df8947, d = ff964d92, e = 533ccf19, f = 3bbc1e0c, g = 12fbfcb2, h = ed20b59a
+# a = 4d1ca1a2, b = 89076d65, c = c7459838, d = 33df8947, e = b4936089, f = 533ccf19, g = 3bbc1e0c, h = 12fbfcb2
+# a = 28025cc0, b = 4d1ca1a2, c = 89076d65, d = c7459838, e = a208732e, f = b4936089, g = 533ccf19, h = 3bbc1e0c
+# a = 3db0b0fd, b = 28025cc0, c = 4d1ca1a2, d = 89076d65, e = 167d03d3, f = a208732e, g = b4936089, h = 533ccf19
+# a = cb31323e, b = 3db0b0fd, c = 28025cc0, d = 4d1ca1a2, e = 1ce1b977, f = 167d03d3, g = a208732e, h = b4936089
+# a = 43d7f2e3, b = cb31323e, c = 3db0b0fd, d = 28025cc0, e = 7fd1755f, f = 1ce1b977, g = 167d03d3, h = a208732e
+# a = d6859c1a, b = 43d7f2e3, c = cb31323e, d = 3db0b0fd, e = 9ab1d6d3, f = 7fd1755f, g = 1ce1b977, h = 167d03d3
+# a = 7d08272c, b = d6859c1a, c = 43d7f2e3, d = cb31323e, e = b41b6d7f, f = 9ab1d6d3, g = 7fd1755f, h = 1ce1b977
+# a = f26f8c87, b = 7d08272c, c = d6859c1a, d = 43d7f2e3, e = 5f5db81d, f = b41b6d7f, g = 9ab1d6d3, h = 7fd1755f
+# a = 6fc6bc21, b = f26f8c87, c = 7d08272c, d = d6859c1a, e = 96fab362, f = 5f5db81d, g = b41b6d7f, h = 9ab1d6d3
+# a = 2a38baff, b = 6fc6bc21, c = f26f8c87, d = 7d08272c, e = e1655672, f = 96fab362, g = 5f5db81d, h = b41b6d7f
+# a = 8ee38d73, b = 2a38baff, c = 6fc6bc21, d = f26f8c87, e = a1e07426, f = e1655672, g = 96fab362, h = 5f5db81d
+# a = eff34162, b = 8ee38d73, c = 2a38baff, d = 6fc6bc21, e = ad6eb6fb, f = a1e07426, g = e1655672, h = 96fab362
+# a = f0bd1ee4, b = eff34162, c = 8ee38d73, d = 2a38baff, e = 33a22d15, f = ad6eb6fb, g = a1e07426, h = e1655672
+# a = d4875ba3, b = f0bd1ee4, c = eff34162, d = 8ee38d73, e = d059b7ad, f = 33a22d15, g = ad6eb6fb, h = a1e07426
+# a = 803f6cfc, b = d4875ba3, c = f0bd1ee4, d = eff34162, e = e519a10d, f = d059b7ad, g = 33a22d15, h = ad6eb6fb
+# a = 4057d854, b = 803f6cfc, c = d4875ba3, d = f0bd1ee4, e = a533920e, f = e519a10d, g = d059b7ad, h = 33a22d15
+# a = 1848612a, b = 4057d854, c = 803f6cfc, d = d4875ba3, e = bb178170, f = a533920e, g = e519a10d, h = d059b7ad
+# a = 3a4d702c, b = 1848612a, c = 4057d854, d = 803f6cfc, e = 5faef0eb, f = bb178170, g = a533920e, h = e519a10d
+# a = 9a934592, b = 3a4d702c, c = 1848612a, d = 4057d854, e = 485303d9, f = 5faef0eb, g = bb178170, h = a533920e
+# a = 2d03bc73, b = 9a934592, c = 3a4d702c, d = 1848612a, e = 8bebe409, f = 485303d9, g = 5faef0eb, h = bb178170
+# a = 9ba709d9, b = 2d03bc73, c = 9a934592, d = 3a4d702c, e = 53c3ab1c, f = 8bebe409, g = 485303d9, h = 5faef0eb
+# a = 00226d78, b = 9ba709d9, c = 2d03bc73, d = 9a934592, e = eaea56b1, f = 53c3ab1c, g = 8bebe409, h = 485303d9
+# a = 0a27ae89, b = 00226d78, c = 9ba709d9, d = 2d03bc73, e = b91a4c55, f = eaea56b1, g = 53c3ab1c, h = 8bebe409
+# a = 28eddff2, b = 0a27ae89, c = 00226d78, d = 9ba709d9, e = a34ecfd5, f = b91a4c55, g = eaea56b1, h = 53c3ab1c
+# a = 30f737c2, b = 28eddff2, c = 0a27ae89, d = 00226d78, e = 01a05972, f = a34ecfd5, g = b91a4c55, h = eaea56b1
+# a = 867fe474, b = 30f737c2, c = 28eddff2, d = 0a27ae89, e = 6ec74fa0, f = 01a05972, g = a34ecfd5, h = b91a4c55
+# a = f2defb68, b = 867fe474, c = 30f737c2, d = 28eddff2, e = de5c9904, f = 6ec74fa0, g = 01a05972, h = a34ecfd5
+# a = d0e07c43, b = f2defb68, c = 867fe474, d = 30f737c2, e = aab0d8ef, f = de5c9904, g = 6ec74fa0, h = 01a05972
+# a = 7b060657, b = d0e07c43, c = f2defb68, d = 867fe474, e = 4126aa69, f = aab0d8ef, g = de5c9904, h = 6ec74fa0
+# a = a5e58cc7, b = 7b060657, c = d0e07c43, d = f2defb68, e = 453beeaf, f = 4126aa69, g = aab0d8ef, h = de5c9904
+# a = a688a6fb, b = a5e58cc7, c = 7b060657, d = d0e07c43, e = 8e0c4392, f = 453beeaf, g = 4126aa69, h = aab0d8ef
+# a = 8f158887, b = a688a6fb, c = a5e58cc7, d = 7b060657, e = bb8c8a92, f = 8e0c4392, g = 453beeaf, h = 4126aa69
+# a = d6fd699a, b = 8f158887, c = a688a6fb, d = a5e58cc7, e = b8a2de79, f = bb8c8a92, g = 8e0c4392, h = 453beeaf
+# a = b2f8492a, b = d6fd699a, c = 8f158887, d = a688a6fb, e = c570a680, f = b8a2de79, g = bb8c8a92, h = 8e0c4392
+# a = d3a14ff0, b = b2f8492a, c = d6fd699a, d = 8f158887, e = de5d7e1e, f = c570a680, g = b8a2de79, h = bb8c8a92
+# a = eea16447, b = d3a14ff0, c = b2f8492a, d = d6fd699a, e = dc6c955c, f = de5d7e1e, g = c570a680, h = b8a2de79
+# a = 68092a27, b = eea16447, c = d3a14ff0, d = b2f8492a, e = f05f12bf, f = dc6c955c, g = de5d7e1e, h = c570a680
+# a = 4715782b, b = 68092a27, c = eea16447, d = d3a14ff0, e = 5fdabb8e, f = f05f12bf, g = dc6c955c, h = de5d7e1e
+# a = 18904e8c, b = 4715782b, c = 68092a27, d = eea16447, e = 38b06a98, f = 5fdabb8e, g = f05f12bf, h = dc6c955c
+# a = 9c83b8c7, b = 18904e8c, c = 4715782b, d = 68092a27, e = 0f94cb9c, f = 38b06a98, g = 5fdabb8e, h = f05f12bf
+# a = 1e0199ca, b = 9c83b8c7, c = 18904e8c, d = 4715782b, e = 397a3704, f = 0f94cb9c, g = 38b06a98, h = 5fdabb8e
+# a = 22252571, b = 1e0199ca, c = 9c83b8c7, d = 18904e8c, e = fd0146c8, f = 397a3704, g = 0f94cb9c, h = 38b06a98
+# a = ee607292, b = 22252571, c = 1e0199ca, d = 9c83b8c7, e = f1596a5e, f = fd0146c8, g = 397a3704, h = 0f94cb9c
+# a = 16720854, b = ee607292, c = 22252571, d = 1e0199ca, e = d60f6b2b, f = f1596a5e, g = fd0146c8, h = 397a3704
+# a = 61517edf, b = 16720854, c = ee607292, d = 22252571, e = c9d5967d, f = d60f6b2b, g = f1596a5e, h = fd0146c8
+# a = 040e21ab, b = 61517edf, c = 16720854, d = ee607292, e = 546ea38d, f = c9d5967d, g = d60f6b2b, h = f1596a5e
+# a = a0d763dc, b = 040e21ab, c = 61517edf, d = 16720854, e = 9608a984, f = 546ea38d, g = c9d5967d, h = d60f6b2b
+# a = fb44da37, b = a0d763dc, c = 040e21ab, d = 61517edf, e = 85ffd1dd, f = 9608a984, g = 546ea38d, h = c9d5967d
+# a = 99375f6d, b = fb44da37, c = a0d763dc, d = 040e21ab, e = 1e3c4747, f = 85ffd1dd, g = 9608a984, h = 546ea38d
+# a = 8767fce6, b = 99375f6d, c = fb44da37, d = a0d763dc, e = 91c21b0f, f = 1e3c4747, g = 85ffd1dd, h = 9608a984
+# ---------------------
+# COMPARE HASH RESULTS:
+# ---------------------
+# Correct H[0] = bdd2fbd9	Your H[0] = bdd2fbd9
+# Correct H[1] = 42623974	Your H[1] = 42623974
+# Correct H[2] = bf129635	Your H[2] = bf129635
+# Correct H[3] = 937c5107	Your H[3] = 937c5107
+# Correct H[4] = f09b6e9e	Your H[4] = f09b6e9e
+# Correct H[5] = 708eb28b	Your H[5] = 708eb28b
+# Correct H[6] = 0318d121	Your H[6] = 0318d121
+# Correct H[7] = 85eca921	Your H[7] = 85eca921
+# ***************************
+# 
+# CONGRATULATIONS! All your hash results are correct!
+# 
+# Total number of cycles:         170
+# 
+# 
+# ***************************
+# 
+# ** Note: $stop    : H:/simplified_sha256/tb_simplified_sha256.sv(262)
+#    Time: 3450 ps  Iteration: 2  Instance: /tb_simplified_sha256
+# Break in Module tb_simplified_sha256 at H:/simplified_sha256/tb_simplified_sha256.sv line 262
+# End time: 22:38:35 on Jun 04,2024, Elapsed time: 0:24:22
+# Errors: 0, Warnings: 2
